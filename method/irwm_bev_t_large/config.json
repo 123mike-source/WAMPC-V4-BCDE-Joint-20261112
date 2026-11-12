@@ -1,0 +1,42 @@
+{
+  "method": "irwm_bev_t_large",
+  "architecture": "multiscale_recurrent_192_v1",
+  "index": "data/irwm_bev_t/pdm_seed901_dev44_dt05_v1",
+  "cache": "data/irwm_bev/teacher_cache",
+  "seed": 901,
+  "epochs": 24,
+  "batch_per_gpu": 4,
+  "world_size": 8,
+  "accumulation_steps": 1,
+  "effective_batch": 32,
+  "workers_per_rank": 2,
+  "prefetch_factor": 2,
+  "learning_rate": 0.0002,
+  "weight_decay": 0.01,
+  "warmup_updates": 500,
+  "checkpoint_every": 250,
+  "log_every": 10,
+  "precision": "bf16",
+  "initialization": "random; combined BCDE architecture",
+  "model": {
+    "hidden": 192,
+    "history": 3,
+    "path_nodes": 6,
+    "skip_channels": 64,
+    "coarse_hidden": 384,
+    "history_residuals": 4,
+    "transition_residuals": 2,
+    "coarse_residuals": 2,
+    "decoder_residuals": 1
+  },
+  "loss": {
+    "nmse": 1.0,
+    "corridor_nmse": 0.5,
+    "cosine": 0.05,
+    "dynamic_nmse": 0.25,
+    "temporal_nmse": 0.1,
+    "multiscale_nmse": 0.1,
+    "pool_scales": [2, 4],
+    "dynamic_weight_cap": 5.0
+  }
+}

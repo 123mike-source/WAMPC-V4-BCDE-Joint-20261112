@@ -1,0 +1,5 @@
+NCCL version 2.21.5+cuda12.4
+{"event": "benchmark", "batch_per_gpu": 16, "oom": false, "seconds": 0.4794894754886627, "peak_allocated_gib": 5.409101486206055, "samples_per_second": 266.9505933775735}
+{"event": "benchmark", "batch_per_gpu": 32, "oom": false, "seconds": 0.9456210732460022, "peak_allocated_gib": 6.004491806030273, "samples_per_second": 270.72154718510797}
+{"event": "benchmark", "batch_per_gpu": 64, "oom": false, "seconds": 1.5817644596099854, "peak_allocated_gib": 7.053220272064209, "samples_per_second": 323.6891541527261}
+{"event": "benchmark", "batch_per_gpu": 96, "oom": false, "seconds": 1.39319908618927, "peak_allocated_gib": 8.103339195251465, "samples_per_second": 551.2492849106455}

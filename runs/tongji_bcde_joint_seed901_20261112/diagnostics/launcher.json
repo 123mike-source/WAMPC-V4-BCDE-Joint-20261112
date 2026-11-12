@@ -1,0 +1,11 @@
+{
+  "launcher_pid": 2888063,
+  "host": "logini01",
+  "job": 3426091,
+  "gpu_node": "gpu4034",
+  "gpus": 8,
+  "cpus": 48,
+  "output": "/share/home/u21012/nixiran/WAMPC/ckps/full_diffusionv4/tongji_bcde_joint_seed901_20261112",
+  "allocation_policy": "retain after success or failure",
+  "code_sha256": "35ec60d88c44ebcb87a155a17086d46ba04a9b7b0bd1667691324ff82a314f41"
+}

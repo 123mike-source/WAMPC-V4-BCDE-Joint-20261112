@@ -1,0 +1,164 @@
+{
+  "method": "full_diffusionv4",
+  "architecture": "independent_dual_query64_irwm_fixed_frame_v1",
+  "controller": "automot_temporal_pid_v1",
+  "seed": 901,
+  "precision": "bf16",
+  "observation_interval_seconds": 0.25,
+  "history_stride": 1,
+  "history_encode_chunk": 8,
+  "backbone_directory": "ckps/full_diffusion/backbone/all_towns_seed1",
+  "index_directory": "data/full_diffusionv4/pdm_seed901_bcde_v1",
+  "normalization_file": "data/full_diffusionv4/pdm_seed901_bcde_v1/manifest.json",
+  "data_root": "/share/home/u21012/data/bench2drive-PDMlite",
+  "world": {
+    "checkpoint": "ckps/irwm_bev_t_large/release/best.pt",
+    "checkpoint_sha256": "b83eba4a33bb90031c43fea668087346a7e5a6af8aada53a8c5094f6f0703c2a",
+    "frozen": false,
+    "future_frame": "fixed_input_ego",
+    "readout_horizons_seconds": [
+      0.5,
+      1.0,
+      1.5,
+      2.0,
+      2.5
+    ],
+    "rollout_once_per_frame": true,
+    "max_prior_age_seconds": 0.5,
+    "tail_policy": "mask_without_extrapolation",
+    "tuning": {
+      "schema": "bcde_last_transition_decoder_action_v1",
+      "parameter_prefixes": [
+        "model.transition.1.",
+        "model.decode.",
+        "model.action."
+      ],
+      "precision": "fp32_tf32",
+      "module_mode": "eval_with_gradients",
+      "gradient_rollout": "full_five_step_bptt",
+      "activation_checkpoint": "nonreentrant_step",
+      "observed_encoders": "frozen",
+      "supervision": "planner_loss_only"
+    }
+  },
+  "model": {
+    "path_points": 6,
+    "temporal_points": 6,
+    "slot_width": 64,
+    "d_model": 256,
+    "bev_channels": 64,
+    "d_ffn": 1024,
+    "layers": 2,
+    "dropout": 0.1,
+    "history_frames": 2,
+    "behavior_width": 128,
+    "path_scale": 20.0,
+    "speed_scale": 20.0,
+    "temporal_interval_seconds": 0.5,
+    "future_sampler": {
+      "points_per_map": [
+        9,
+        9,
+        16,
+        25,
+        36
+      ],
+      "window_m": [
+        6.0,
+        3.0
+      ],
+      "horizon_window_scale": [
+        0.5,
+        0.625,
+        0.75,
+        0.875,
+        1.0
+      ]
+    }
+  },
+  "labels": {
+    "spatial_source_indices": [
+      0.0,
+      1.8,
+      3.6,
+      5.4,
+      7.2,
+      9.0
+    ],
+    "raw_measurement_interval_seconds": 0.25,
+    "temporal_interval_seconds": 0.5,
+    "temporal_points": 6,
+    "behavior_horizons_seconds": [
+      1.0,
+      2.0,
+      3.0
+    ],
+    "behavior_classes": [
+      "STOP",
+      "DECELERATE",
+      "KEEP",
+      "ACCELERATE"
+    ],
+    "stop_speed_mps": 0.3,
+    "speed_change_mps": 0.5
+  },
+  "loss": {
+    "spatial_weight": 1.0,
+    "temporal_weight": 2.0,
+    "behavior_weight": 0.4,
+    "temporal_interval_weights": [
+      3,
+      3,
+      2,
+      2,
+      1,
+      1
+    ]
+  },
+  "diffusion": {
+    "train_steps": 1000,
+    "beta_min": 0.1,
+    "beta_d": 19.9,
+    "inference_steps": 25
+  },
+  "training": {
+    "epochs": 10,
+    "world_size": 8,
+    "batch_per_gpu": 128,
+    "workers_per_rank": 4,
+    "warmup_updates": 500,
+    "log_every": 20,
+    "checkpoint_every": 250,
+    "gradient_clip": 1.0,
+    "future_dropout": 0.1,
+    "max_noise_fraction": 0.5,
+    "rolling_inference_steps": 1,
+    "channels_last": true,
+    "prior_source": "detached_sampled_previous_prediction",
+    "augmentation": false,
+    "learning_rates": {
+      "world": 1e-06,
+      "pretrained_context": 1e-05,
+      "pretrained_planner": 2e-05,
+      "new": 0.0001,
+      "gate": 0.001,
+      "distance": 0.01,
+      "current_points": 0.001
+    },
+    "epoch_definition": "ceil(train_samples/global_batch) consumed updates; fixed disjoint causal route streams"
+  },
+  "reference": {
+    "url": "https://github.com/123mike-source/CVCI2_Res_V11_PlanA",
+    "commit": "be6b7842adb8f28d2f05068d8f28206e2b3581ac",
+    "files": [
+      "world_models/world_partial.py",
+      "training_optimization.py",
+      "configs/v11_plan_a/train.json"
+    ],
+    "adaptation": "BCDE last transition block, detail decoder and action fusion; eval FP32/TF32 five-step BPTT; frozen observed encoders; planning losses only"
+  },
+  "initialization": {
+    "checkpoint": "ckps/full_diffusionv3/release/epoch_10.pt",
+    "sha256": "ea3eea848318c86cef17b9bc59a5a8c7fa17eed345123a5d359967a5323eb027"
+  }
+}

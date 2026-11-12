@@ -1,0 +1,102 @@
+{
+  "version": 2,
+  "method": "irwm_bev_t",
+  "data_root": "/share/home/u21012/data/bench2drive-PDMlite",
+  "seed": 901,
+  "routes": 4844,
+  "train_routes": 4800,
+  "validation_routes": 44,
+  "train_samples": 222607,
+  "validation_samples": 1906,
+  "active_train_routes": 4796,
+  "raw_frames": 553117,
+  "sample_stride": 2,
+  "skip_first": 10,
+  "num_repetitions": 1,
+  "frame_dt_s": 0.25,
+  "history_frames": 3,
+  "future_frames": 12,
+  "query_times_seconds": [
+    0.5,
+    1.0,
+    1.5,
+    2.0,
+    2.5,
+    3.0
+  ],
+  "action_contract": {
+    "version": "irwm_bev_t_v1",
+    "action": "six consecutive XY displacements in metres",
+    "action_shape": [
+      6,
+      2
+    ],
+    "times_seconds": [
+      0.5,
+      1.0,
+      1.5,
+      2.0,
+      2.5,
+      3.0
+    ],
+    "action_frame": "all displacements expressed in the input observation ego frame",
+    "feature_shape": [
+      6,
+      64,
+      64,
+      64
+    ],
+    "feature_frame": "fixed input observation ego frame",
+    "axes": "width=x forward; height=y right",
+    "extent_metres": [
+      -32,
+      32
+    ],
+    "history_times_seconds": [
+      -0.5,
+      -0.25,
+      0.0
+    ],
+    "speed": "current measured speed; target speed derived from second displacement / 0.5"
+  },
+  "filtering": {
+    "train": {
+      "old_samples": 241806,
+      "samples": 222607,
+      "removed_incomplete_3s": 19199,
+      "active_routes": 4796
+    },
+    "val": {
+      "old_samples": 2082,
+      "samples": 1906,
+      "removed_incomplete_3s": 176,
+      "active_routes": 44
+    }
+  },
+  "teacher_sha256": "0ff5062a234f5919385957c4b46df8a10adcf09a88a427198e0e2e655b5935cb",
+  "teacher_config_sha256": "895e3e9704ceda443169ca32aaef2712b1becf2d42473d7273071ec6ceda113e",
+  "source_routes_sha256": "e7e15b2d1f3dfcca462b3eaf6315f6d4b95bc8f923e6530b295404d0bfb9fcb7",
+  "official_xml_sha256": "ffff24b3a2b8584632730fb42de7cb6036af780c3952cfef08ee8cf96a712f88",
+  "split_sha256": "c3c92b4a760f207d5542a49efca9c682aa9b9803b0f05adb5f49a6da828810a3",
+  "train_index_sha256": "c795196ac8f58c6827f07873728323835d9d73f4a1524d2c99bab6175584dbbb",
+  "val_index_sha256": "bae9a3ea2c0a3c9bbd8293a0929b6b859a28c1a2e1666407e09eaab5ac509fd5",
+  "required_frames": 482906,
+  "required_frames_sha256": "9d5274e5c720652bae57ca48d5e30af2ab1dbd490e4b5195edbede5b01b4eb82",
+  "selection": "route macro average masked multi-step normalized feature MSE",
+  "feature_contract": "tfpp-64x64x64-bf16-v1; x forward = width; y right = height; [-32,32] m",
+  "temporal_contract": "six exact future observations at 0.5 to 3.0 s; full horizon only; no feature interpolation",
+  "source_kind": "reconstruct_full_diffusion_quality_and_repetition_filter",
+  "source_filter_counts": {
+    "candidate_routes": 5368,
+    "excluded_quality": 308
+  },
+  "source_scripts_sha256": {
+    "method/full_diffusion/data.py": "4503c400c3aac58c165de100a8521994c2cd18d4e75158cd0480af6203496894",
+    "tools/audit_full_diffusion.py": "d8d0c26b9c912a1a3b0659dd79b85400c4ffc19d2d547f5a6554443770782f5d",
+    "method/irwm_bev/prepare.py": "2745edb6cdc072f417adfa3fb4c65b706c96a5637fe7cdfd6573e0389494c816",
+    "method/irwm_bev_t/prepare.py": "c08626ee71ad0ec79e7869c9d51d1330b9854c09923c1a76b474db61a92c264e"
+  },
+  "split_reconstructed": true,
+  "original_cluster_index_unavailable": true,
+  "cache_coverage": "union of three history and six exact future observations for every retained anchor"
+}

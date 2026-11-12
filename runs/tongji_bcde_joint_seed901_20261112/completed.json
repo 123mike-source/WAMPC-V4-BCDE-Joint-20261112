@@ -1,0 +1,17 @@
+{
+  "epoch": 10,
+  "step_in_epoch": 0,
+  "updates": 2180,
+  "best_future_ade_m": 1.3972659372014051,
+  "validation_pending": false,
+  "validation": {
+    "spatial_ade_m": 0.061230671162547004,
+    "future_ade_m": 1.4550219367593955,
+    "temporal_delta_l1_m": 0.39518926157926854,
+    "behavior_accuracy": 0.7143527950247964,
+    "routes": 44,
+    "sequences": 1906,
+    "aggregation": "route_macro",
+    "inference_steps": 25
+  }
+}

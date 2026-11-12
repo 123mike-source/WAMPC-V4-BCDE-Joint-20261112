@@ -1,0 +1,8 @@
+{
+  "dataset_sha256": "5d30a737343e797b09bc6fc22e4c6262f6b441643121b5dd9d24126a626e2efe",
+  "teacher_sha256": "0ff5062a234f5919385957c4b46df8a10adcf09a88a427198e0e2e655b5935cb",
+  "routes": 4840,
+  "frames": 224513,
+  "precision": "bf16",
+  "source": "frozen TF++ current observation memory and ego; no future sensor inputs"
+}

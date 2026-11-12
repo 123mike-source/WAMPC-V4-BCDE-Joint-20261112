@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "training_source_hashes_verified": 16,
+  "python_files_syntax_checked": 169,
+  "shell_files_syntax_checked": 17,
+  "secret_pattern_hits": [],
+  "checkpoint_or_sensor_cache_files": 0,
+  "numeric_metadata_routes_verified": 4844,
+  "formal_training_updates": 2180,
+  "validation_epochs": 10,
+  "original_joint_unit_tests_passed": 6,
+  "restoration_helper": {
+    "status": "PASS",
+    "metadata_routes": 4844,
+    "exact_index_arrays": true,
+    "path_relocation": true,
+    "repeat_run_idempotent": true,
+    "conflicting_index_refused": true,
+    "training_source_directory_modified": false
+  },
+  "sampling_coverage": {
+    "training_samples": 222607,
+    "unique_visited": 222607,
+    "draws": 2232320,
+    "min_visits": 1,
+    "max_visits": 42
+  },
+  "local_model_unit_tests_rerun": false,
+  "unit_test_evidence": "runs/tongji_bcde_joint_seed901_20261112/diagnostics/unit.log",
+  "gpu_allocation_released": false
+}

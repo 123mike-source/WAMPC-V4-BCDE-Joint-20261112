@@ -1,0 +1,163 @@
+NCCL version 2.21.5+cuda12.4
+terminate called without an active exception
+terminate called without an active exception
+terminate called without an active exception
+terminate called without an active exception
+[rank2]: Traceback (most recent call last):
+[rank2]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+[rank2]:     return _run_code(code, main_globals, None,
+[rank2]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/runpy.py", line 86, in _run_code
+[rank2]:     exec(code, run_globals)
+[rank2]:   File "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/joint_train.py", line 422, in <module>
+[rank2]:     main()
+[rank2]:   File "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/joint_train.py", line 396, in main
+[rank2]:     close_loader(iterator)
+[rank2]:   File "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/joint_train.py", line 183, in close_loader
+[rank2]:     shutdown()
+[rank2]:   File "/share/home/u21012/nixiran/WAMPC/.venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1568, in _shutdown_workers
+[rank2]:     w.join(timeout=_utils.MP_STATUS_CHECK_INTERVAL)
+[rank2]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/multiprocessing/process.py", line 149, in join
+[rank2]:     res = self._popen.wait(timeout)
+[rank2]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/multiprocessing/popen_fork.py", line 40, in wait
+[rank2]:     if not wait([self.sentinel], timeout):
+[rank2]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/multiprocessing/connection.py", line 931, in wait
+[rank2]:     ready = selector.select(timeout)
+[rank2]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/selectors.py", line 416, in select
+[rank2]:     fd_event_list = self._selector.poll(timeout)
+[rank2]:   File "/share/home/u21012/nixiran/WAMPC/.venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/utils/data/_utils/signal_handling.py", line 73, in handler
+[rank2]:     _error_if_any_worker_fails()
+[rank2]: RuntimeError: DataLoader worker (pid 3333491) is killed by signal: Aborted. 
+[rank7]: Traceback (most recent call last):
+[rank7]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+[rank7]:     return _run_code(code, main_globals, None,
+[rank7]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/runpy.py", line 86, in _run_code
+[rank7]:     exec(code, run_globals)
+[rank7]:   File "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/joint_train.py", line 422, in <module>
+[rank7]:     main()
+[rank7]:   File "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/joint_train.py", line 396, in main
+[rank7]:     close_loader(iterator)
+[rank7]:   File "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/joint_train.py", line 183, in close_loader
+[rank7]:     shutdown()
+[rank7]:   File "/share/home/u21012/nixiran/WAMPC/.venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1568, in _shutdown_workers
+[rank7]:     w.join(timeout=_utils.MP_STATUS_CHECK_INTERVAL)
+[rank7]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/multiprocessing/process.py", line 149, in join
+[rank7]:     res = self._popen.wait(timeout)
+[rank7]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/multiprocessing/popen_fork.py", line 40, in wait
+[rank7]:     if not wait([self.sentinel], timeout):
+[rank7]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/multiprocessing/connection.py", line 931, in wait
+[rank7]:     ready = selector.select(timeout)
+[rank7]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/selectors.py", line 416, in select
+[rank7]:     fd_event_list = self._selector.poll(timeout)
+[rank7]:   File "/share/home/u21012/nixiran/WAMPC/.venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/utils/data/_utils/signal_handling.py", line 73, in handler
+[rank7]:     _error_if_any_worker_fails()
+[rank7]: RuntimeError: DataLoader worker (pid 3333524) is killed by signal: Aborted. 
+[rank5]: Traceback (most recent call last):
+[rank5]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+[rank5]:     return _run_code(code, main_globals, None,
+[rank5]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/runpy.py", line 86, in _run_code
+[rank5]:     exec(code, run_globals)
+[rank5]:   File "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/joint_train.py", line 422, in <module>
+[rank5]:     main()
+[rank5]:   File "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/joint_train.py", line 396, in main
+[rank5]:     close_loader(iterator)
+[rank5]:   File "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/joint_train.py", line 183, in close_loader
+[rank5]:     shutdown()
+[rank5]:   File "/share/home/u21012/nixiran/WAMPC/.venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1568, in _shutdown_workers
+[rank5]:     w.join(timeout=_utils.MP_STATUS_CHECK_INTERVAL)
+[rank5]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/multiprocessing/process.py", line 149, in join
+[rank5]:     res = self._popen.wait(timeout)
+[rank5]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/multiprocessing/popen_fork.py", line 40, in wait
+[rank5]:     if not wait([self.sentinel], timeout):
+[rank5]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/multiprocessing/connection.py", line 931, in wait
+[rank5]:     ready = selector.select(timeout)
+[rank5]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/selectors.py", line 416, in select
+[rank5]:     fd_event_list = self._selector.poll(timeout)
+[rank5]:   File "/share/home/u21012/nixiran/WAMPC/.venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/utils/data/_utils/signal_handling.py", line 73, in handler
+[rank5]:     _error_if_any_worker_fails()
+[rank5]: RuntimeError: DataLoader worker (pid 3333347) is killed by signal: Aborted. 
+[rank4]: Traceback (most recent call last):
+[rank4]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+[rank4]:     return _run_code(code, main_globals, None,
+[rank4]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/runpy.py", line 86, in _run_code
+[rank4]:     exec(code, run_globals)
+[rank4]:   File "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/joint_train.py", line 422, in <module>
+[rank4]:     main()
+[rank4]:   File "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/joint_train.py", line 396, in main
+[rank4]:     close_loader(iterator)
+[rank4]:   File "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/joint_train.py", line 183, in close_loader
+[rank4]:     shutdown()
+[rank4]:   File "/share/home/u21012/nixiran/WAMPC/.venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1568, in _shutdown_workers
+[rank4]:     w.join(timeout=_utils.MP_STATUS_CHECK_INTERVAL)
+[rank4]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/multiprocessing/process.py", line 149, in join
+[rank4]:     res = self._popen.wait(timeout)
+[rank4]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/multiprocessing/popen_fork.py", line 40, in wait
+[rank4]:     if not wait([self.sentinel], timeout):
+[rank4]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/multiprocessing/connection.py", line 931, in wait
+[rank4]:     ready = selector.select(timeout)
+[rank4]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/selectors.py", line 416, in select
+[rank4]:     fd_event_list = self._selector.poll(timeout)
+[rank4]:   File "/share/home/u21012/nixiran/WAMPC/.venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/utils/data/_utils/signal_handling.py", line 73, in handler
+[rank4]:     _error_if_any_worker_fails()
+[rank4]: RuntimeError: DataLoader worker (pid 3333771) is killed by signal: Aborted. 
+terminate called without an active exception
+[rank6]: Traceback (most recent call last):
+[rank6]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+[rank6]:     return _run_code(code, main_globals, None,
+[rank6]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/runpy.py", line 86, in _run_code
+[rank6]:     exec(code, run_globals)
+[rank6]:   File "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/joint_train.py", line 422, in <module>
+[rank6]:     main()
+[rank6]:   File "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/joint_train.py", line 396, in main
+[rank6]:     close_loader(iterator)
+[rank6]:   File "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/joint_train.py", line 183, in close_loader
+[rank6]:     shutdown()
+[rank6]:   File "/share/home/u21012/nixiran/WAMPC/.venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1568, in _shutdown_workers
+[rank6]:     w.join(timeout=_utils.MP_STATUS_CHECK_INTERVAL)
+[rank6]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/multiprocessing/process.py", line 149, in join
+[rank6]:     res = self._popen.wait(timeout)
+[rank6]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/multiprocessing/popen_fork.py", line 40, in wait
+[rank6]:     if not wait([self.sentinel], timeout):
+[rank6]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/multiprocessing/connection.py", line 931, in wait
+[rank6]:     ready = selector.select(timeout)
+[rank6]:   File "/share/home/u21012/anaconda3/envs/BridgeDrive/lib/python3.10/selectors.py", line 416, in select
+[rank6]:     fd_event_list = self._selector.poll(timeout)
+[rank6]:   File "/share/home/u21012/nixiran/WAMPC/.venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/utils/data/_utils/signal_handling.py", line 73, in handler
+[rank6]:     _error_if_any_worker_fails()
+[rank6]: RuntimeError: DataLoader worker (pid 3333736) is killed by signal: Aborted. 
+W1112 18:35:36.726000 3331941 .venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/api.py:897] Sending process 3331967 closing signal SIGTERM
+W1112 18:35:36.727000 3331941 .venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/api.py:897] Sending process 3331968 closing signal SIGTERM
+W1112 18:35:36.728000 3331941 .venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/api.py:897] Sending process 3331970 closing signal SIGTERM
+W1112 18:35:36.728000 3331941 .venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/api.py:897] Sending process 3331971 closing signal SIGTERM
+W1112 18:35:36.728000 3331941 .venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/api.py:897] Sending process 3331972 closing signal SIGTERM
+W1112 18:35:36.729000 3331941 .venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/api.py:897] Sending process 3331973 closing signal SIGTERM
+W1112 18:35:36.729000 3331941 .venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/api.py:897] Sending process 3331974 closing signal SIGTERM
+E1112 18:35:38.879000 3331941 .venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/api.py:869] failed (exitcode: 1) local_rank: 2 (pid: 3331969) of binary: /share/home/u21012/nixiran/WAMPC/.venvs/full-diffusion-carla/bin/python
+Traceback (most recent call last):
+  File "/share/home/u21012/nixiran/WAMPC/.venvs/full-diffusion-carla/bin/torchrun", line 6, in <module>
+    sys.exit(main())
+  File "/share/home/u21012/nixiran/WAMPC/.venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 355, in wrapper
+    return f(*args, **kwargs)
+  File "/share/home/u21012/nixiran/WAMPC/.venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/distributed/run.py", line 919, in main
+    run(args)
+  File "/share/home/u21012/nixiran/WAMPC/.venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/distributed/run.py", line 910, in run
+    elastic_launch(
+  File "/share/home/u21012/nixiran/WAMPC/.venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 138, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/share/home/u21012/nixiran/WAMPC/.venvs/full-diffusion-carla/lib/python3.10/site-packages/torch/distributed/launcher/api.py", line 269, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+method.full_diffusionv4.joint_train FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-11-12_18:35:36
+  host      : gpu4034
+  rank      : 2 (local_rank: 2)
+  exitcode  : 1 (pid: 3331969)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

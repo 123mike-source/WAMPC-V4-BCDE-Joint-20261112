@@ -1,0 +1,30 @@
+{
+  "included": false,
+  "required_files": [
+    {
+      "role": "V3 planner initialization",
+      "path": "ckps/full_diffusionv3/release/epoch_10.pt",
+      "sha256": "ea3eea848318c86cef17b9bc59a5a8c7fa17eed345123a5d359967a5323eb027"
+    },
+    {
+      "role": "BCDE world model before joint partial tuning",
+      "path": "ckps/irwm_bev_t_large/release/best.pt",
+      "sha256": "b83eba4a33bb90031c43fea668087346a7e5a6af8aada53a8c5094f6f0703c2a",
+      "source_run": "ckps/irwm_bev_t_large/tongji_bcde_seed901_20261111/best.pt",
+      "selected_epoch": 21
+    },
+    {
+      "role": "frozen TF++ teacher",
+      "path": "ckps/full_diffusion/backbone/all_towns_seed1/model_0030_1.pth",
+      "sha256": "0ff5062a234f5919385957c4b46df8a10adcf09a88a427198e0e2e655b5935cb"
+    },
+    {
+      "role": "TF++ teacher configuration",
+      "path": "ckps/full_diffusion/backbone/all_towns_seed1/config.json",
+      "sha256": "895e3e9704ceda443169ca32aaef2712b1becf2d42473d7273071ec6ceda113e"
+    }
+  ],
+  "trained_checkpoint_directory_on_original_server": "/share/home/u21012/nixiran/WAMPC/ckps/full_diffusionv4/tongji_bcde_joint_seed901_20261112",
+  "best_checkpoint": "best.pt (epoch 5)",
+  "last_checkpoint": "latest.pt (epoch 10)"
+}

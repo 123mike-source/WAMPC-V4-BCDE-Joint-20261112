@@ -1,0 +1,1243 @@
+{
+  "upstream": {
+    "url": "https://github.com/neasonrum/WAMPC",
+    "commit": "d98a90b16619d585d6db400d3cfd924c35b225b6"
+  },
+  "reference": {
+    "url": "https://github.com/123mike-source/CVCI2_Res_V11_PlanA",
+    "commit": "be6b7842adb8f28d2f05068d8f28206e2b3581ac",
+    "files": [
+      "world_models/world_partial.py",
+      "training_optimization.py",
+      "configs/v11_plan_a/train.json"
+    ],
+    "adaptation": "BCDE last transition block, detail decoder and action fusion; eval FP32/TF32 five-step BPTT; frozen observed encoders; planning losses only"
+  },
+  "bridge": {
+    "url": "https://github.com/ShuLiu-ETHZ/BridgeDrive.git",
+    "commit": "85aa089a321a7b7cbc42aa58b3be508eb223d9e2"
+  },
+  "submodules": {
+    "third_party/carla_garage": "48e6a6dbcb133220333bd65e242fbc2b492bb15b"
+  },
+  "run": "tongji_bcde_joint_seed901_20261112",
+  "job_id": 3426091,
+  "training_code_matches_startup_hashes": true,
+  "source_files": {
+    "method/full_diffusion/configs/geo.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusion/configs/geo.json",
+      "sha256": "662b0031ec9d38bedf7b128fd822fd96f686583dabe3820526a3a59dd8a2b7bf",
+      "bytes": 2131
+    },
+    "method/full_diffusion/data.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusion/data.py",
+      "sha256": "4503c400c3aac58c165de100a8521994c2cd18d4e75158cd0480af6203496894",
+      "bytes": 11529
+    },
+    "method/full_diffusion/diffusion.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusion/diffusion.py",
+      "sha256": "5ea2c72fbcc3c21032b2b3e159525efe1a9c1ffe15350dcdf4c85e8d9ab45eeb",
+      "bytes": 3988
+    },
+    "method/full_diffusion/garage.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusion/garage.py",
+      "sha256": "766ecd0e4722f0cd23bad1437a9ad47362dba7dd66fa3371a96681e4c2791b6a",
+      "bytes": 3835
+    },
+    "method/full_diffusion/inference/carla_agent.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusion/inference/carla_agent.py",
+      "sha256": "1996b373c77e938e16e7cf44c5dcd4f3987c6e57fb2ec28eac7a0ef1b573a3d6",
+      "bytes": 1581
+    },
+    "method/full_diffusion/inference/policy.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusion/inference/policy.py",
+      "sha256": "ffff10b0439d5cc36a498f43fce7ef4b7d2aa952f3a98dbf4ff46393248da597",
+      "bytes": 3439
+    },
+    "method/full_diffusion/model.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusion/model.py",
+      "sha256": "a220e90b51b9c4b0748100a4d4a63a575608a11d059e3f92236aaaad079842b3",
+      "bytes": 5937
+    },
+    "method/full_diffusion2/README.md": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusion2/README.md",
+      "sha256": "f042dd77c1b5a268947faa0d4fbcebb1a46cbc7897341c999f16c4ba0be158a3",
+      "bytes": 4712
+    },
+    "method/full_diffusion2/__init__.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusion2/__init__.py",
+      "sha256": "14dd3f6f2d1f71901a0ec0de6e7fb55a3a837331ab17982f5d8a5c753c7d33be",
+      "bytes": 431
+    },
+    "method/full_diffusion2/attach.sh": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusion2/attach.sh",
+      "sha256": "0388c321ab8707f4665032657f40ea68acd0e83b8e10c0d77507a5d06121cbc0",
+      "bytes": 356
+    },
+    "method/full_diffusion2/checkpoint.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusion2/checkpoint.py",
+      "sha256": "41d246037b2ad5429966d71073c53633012c0253570a1ade644bf02398d09b7e",
+      "bytes": 2618
+    },
+    "method/full_diffusion2/config.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusion2/config.json",
+      "sha256": "59013da34cf332b42f7f5245cd52ef4b1e0bc1747131c8b4cab5ccf90aca366c",
+      "bytes": 2415
+    },
+    "method/full_diffusion2/data.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusion2/data.py",
+      "sha256": "bb3a58b23fa2d1db9cf51a953bb65544ec08063f0b15e8fb2917f83fb25efc95",
+      "bytes": 5240
+    },
+    "method/full_diffusion2/inference/carla_agent.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusion2/inference/carla_agent.py",
+      "sha256": "addf35c634b46e706379bffe5729acf6c854aaae046d13f55d327afd95b554dc",
+      "bytes": 2013
+    },
+    "method/full_diffusion2/inference/policy.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusion2/inference/policy.py",
+      "sha256": "709c3dd9ac0dcee9337f8909b8058f374a04178515519086264faa5726ac2be5",
+      "bytes": 5896
+    },
+    "method/full_diffusion2/launch.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusion2/launch.py",
+      "sha256": "53a1295a50e19dd89bbeed6d69a66b24d313fbba3001ab615d1fb37584d8821f",
+      "bytes": 9977
+    },
+    "method/full_diffusion2/model.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusion2/model.py",
+      "sha256": "b20f923cdbaf0aa531ce164e2abddb727552c6c17b3b63c1220d3fb7030528d1",
+      "bytes": 5285
+    },
+    "method/full_diffusion2/perception.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusion2/perception.py",
+      "sha256": "257f9df184a7869bba619f1bad64b746187d5433de2d624de19ff6d30c884019",
+      "bytes": 1124
+    },
+    "method/full_diffusion2/snapshot.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusion2/snapshot.py",
+      "sha256": "f0d289498745a857d7e47431637e01a34fe3d6e3f98871d93bc6d063ae5db9a1",
+      "bytes": 13418
+    },
+    "method/full_diffusion2/train.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusion2/train.py",
+      "sha256": "b99dba5069526fe48461d7e164af2e4589fe9dc38743c17a2f9c7afe48988d4d",
+      "bytes": 19622
+    },
+    "method/full_diffusionv3/README.md": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv3/README.md",
+      "sha256": "9b5f972e75d03562e3147fc5b892ceaa8319f114d5a61d62ba01a1d321203710",
+      "bytes": 23175
+    },
+    "method/full_diffusionv3/__init__.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv3/__init__.py",
+      "sha256": "b7dd87e1504559ca58b63643789db18db122dea97a28d58dba41f9e584e389aa",
+      "bytes": 73
+    },
+    "method/full_diffusionv3/acceptance.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv3/acceptance.py",
+      "sha256": "c24d0e6f1db1d5cb77ac889ba5b356872ed5fa2d58a0188c772dbd8307ace786",
+      "bytes": 10595
+    },
+    "method/full_diffusionv3/checkpoint.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv3/checkpoint.py",
+      "sha256": "5e3b6863bfb11dfd793aa4c4ae4152a92643f6ae3b860ffd8d6af79fa09fbf7e",
+      "bytes": 6886
+    },
+    "method/full_diffusionv3/config.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv3/config.json",
+      "sha256": "971a46c4d0c031e1e64fbad43f1553cfc6e4bb2d414572ff0372f37d993165f9",
+      "bytes": 2231
+    },
+    "method/full_diffusionv3/coordinator.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv3/coordinator.py",
+      "sha256": "ec62ef648fe045435cc92bfd5451416f93379bff4a9e33555572634a9f5292fd",
+      "bytes": 17404
+    },
+    "method/full_diffusionv3/data.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv3/data.py",
+      "sha256": "20acfd551ebd042465684f79f109d2aff1e1f18273c660d2d99a47aef8dd2fbb",
+      "bytes": 12470
+    },
+    "method/full_diffusionv3/diffusion.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv3/diffusion.py",
+      "sha256": "5a3c209aa3eaed4f00dd871773d4d87de52b4e11f75c5b94056f78dad5f47ca5",
+      "bytes": 5413
+    },
+    "method/full_diffusionv3/inference/__init__.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv3/inference/__init__.py",
+      "sha256": "7e25d67f1024481cd46fadbada256d474a8a378825401add15cf088e7ddeb88f",
+      "bytes": 59
+    },
+    "method/full_diffusionv3/inference/carla_agent.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv3/inference/carla_agent.py",
+      "sha256": "83468fd95642903d781668a27ef3c7e82d494c9a9b11acbf2c65630605885e3c",
+      "bytes": 2229
+    },
+    "method/full_diffusionv3/inference/compare_steps.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv3/inference/compare_steps.py",
+      "sha256": "270ce90f3362b867dfc65ab400dc89ebde28fd472ab04a67012021a51e6da268",
+      "bytes": 11776
+    },
+    "method/full_diffusionv3/inference/policy.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv3/inference/policy.py",
+      "sha256": "a63ee9fcc141bfcbd631835883270e11091e55bc73dfaf293cdc5e6e55a2a336",
+      "bytes": 7115
+    },
+    "method/full_diffusionv3/inference/render_steps_comparison.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv3/inference/render_steps_comparison.py",
+      "sha256": "a00bdbb9b102116e07a496a2594038a21fe41689b6ab0e270b83fcf15efe014b",
+      "bytes": 7755
+    },
+    "method/full_diffusionv3/model.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv3/model.py",
+      "sha256": "77a39864d8bc340c5dfb525bd9b7955af9b320d6a733b17b76c003c6d7719981",
+      "bytes": 10869
+    },
+    "method/full_diffusionv3/runtime.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv3/runtime.py",
+      "sha256": "8d0e1646d1ec74ea78ad9171d1709624675bf065d60dcbbd73534f123f71be37",
+      "bytes": 9521
+    },
+    "method/full_diffusionv3/supervisor.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv3/supervisor.py",
+      "sha256": "66416996a96b63d21209047af718d478df74a50edb2c8b09fc2b210cdca8c253",
+      "bytes": 20913
+    },
+    "method/full_diffusionv3/train.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv3/train.py",
+      "sha256": "df5d8bfe8bc2930e8fca64dcf1bd8b6b8dad5cb4bde2ce8b7bd5aaed3ad49deb",
+      "bytes": 25363
+    },
+    "method/full_diffusionv4/README.md": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/README.md",
+      "sha256": "d26f18646bfc97798e1023db71aca4e835c951bc5899cd40ca26fd6912fea8d7",
+      "bytes": 12463
+    },
+    "method/full_diffusionv4/__init__.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/__init__.py",
+      "sha256": "60497346fc0a5ece39900f81ed049fa2454adcf77c2aa54470e1d68aa364256f",
+      "bytes": 85
+    },
+    "method/full_diffusionv4/batched_rolling.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/batched_rolling.py",
+      "sha256": "b170f267f5827a58f032ebb7c5bd10f39ed7304d5f99b585a28a8907595bd782",
+      "bytes": 3243
+    },
+    "method/full_diffusionv4/bootstrap.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/bootstrap.py",
+      "sha256": "0eb6132ea0bf8d08b5c816e18f43a18b1111311a781ece38a1f0c4bb3eae7e5a",
+      "bytes": 6929
+    },
+    "method/full_diffusionv4/config.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/config.json",
+      "sha256": "ba6e0587cec84da777056c68330ea2b8dc2db0f6d0fec5554612af1d2d6ccfe5",
+      "bytes": 2361
+    },
+    "method/full_diffusionv4/config_joint.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/config_joint.json",
+      "sha256": "c6d3ff83829f090e91b3c9e75ce06ead6ca29526811b3d1a6a7972e053d9e3e2",
+      "bytes": 4203
+    },
+    "method/full_diffusionv4/data.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/data.py",
+      "sha256": "423ba7993d48dd962fa254bc16f9d6ae37039850fbb7c6ea320d01ee57b6f721",
+      "bytes": 6527
+    },
+    "method/full_diffusionv4/diffusion.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/diffusion.py",
+      "sha256": "c754bd10cb3591a725f3557a4443b2b678c64fa3948a894172f217787d6655d1",
+      "bytes": 5660
+    },
+    "method/full_diffusionv4/future.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/future.py",
+      "sha256": "831bee4687e7e10c4ce40c00cf12d95176df37eadd7f234965e127546d5cc5c6",
+      "bytes": 12031
+    },
+    "method/full_diffusionv4/geometry.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/geometry.py",
+      "sha256": "ad7fe125f78dacc5e8bc843a0b1626c727edeefb4ba6e8900145ee054f34bff3",
+      "bytes": 4177
+    },
+    "method/full_diffusionv4/inference/__init__.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/inference/__init__.py",
+      "sha256": "a0ea6556b2c6dfcb40d77d872fdd541c48354bad70a4eb27e05fcf354f0e4889",
+      "bytes": 58
+    },
+    "method/full_diffusionv4/inference/carla_agent.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/inference/carla_agent.py",
+      "sha256": "af89c90a7d4e1a69f60b498507df74f2248ae8c9ea809520ba87ab53dcad3395",
+      "bytes": 2241
+    },
+    "method/full_diffusionv4/inference/policy.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/inference/policy.py",
+      "sha256": "d4ee1bc0186b77a052fd242490dfe420e3514fa30cce3d4606eacc222c3e92d4",
+      "bytes": 8562
+    },
+    "method/full_diffusionv4/joint.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/joint.py",
+      "sha256": "c2ec21f905a66564cfb54c283f02009a567c98876574e2812e4eb12752a8dc5f",
+      "bytes": 6395
+    },
+    "method/full_diffusionv4/joint_data.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/joint_data.py",
+      "sha256": "2387a9a19256843b4000f406a8ce5a9656bcf6b3e1df48df3884a6e03c271205",
+      "bytes": 6147
+    },
+    "method/full_diffusionv4/joint_train.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/joint_train.py",
+      "sha256": "35ec60d88c44ebcb87a155a17086d46ba04a9b7b0bd1667691324ff82a314f41",
+      "bytes": 23990
+    },
+    "method/full_diffusionv4/model.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/model.py",
+      "sha256": "d5e5fab778fe5007099be1208cc3f2eba2afc953ce34e47b05f49eb080effdad",
+      "bytes": 13603
+    },
+    "method/full_diffusionv4/prepare_joint.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/prepare_joint.py",
+      "sha256": "dab6c53bad58c7a8e726333c4e88f9b21e48593bb432e089ca0d595b98f3ef46",
+      "bytes": 12609
+    },
+    "method/full_diffusionv4/rolling.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/rolling.py",
+      "sha256": "4f8f35fb2fe5d89bd68d6660c6dbb28fec4deddfeeb21309fd86123bf7c596f8",
+      "bytes": 3545
+    },
+    "method/full_diffusionv4/train.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/train.py",
+      "sha256": "f15aafef5b6dadab8ec8e4797244c8a5d57bba585e4ad077b3fd70c73d45a26a",
+      "bytes": 14485
+    },
+    "method/full_diffusionv4/world.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/world.py",
+      "sha256": "5e0171107e513b41706c4676e954e18ae713cec812cd2672adc61ac2e02c9d36",
+      "bytes": 6357
+    },
+    "method/full_diffusionv4/world_tuning.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv4/world_tuning.py",
+      "sha256": "af05d5c6c78bf64e76e804a65442bf33054ef85a6f7bb23890a2d6ffeafca69e",
+      "bytes": 7617
+    },
+    "method/irwm_bev/README.md": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev/README.md",
+      "sha256": "93956072b0c5269b5d418b39825de6e7e02e7525b4d0a3c17777d78c44e47979",
+      "bytes": 7485
+    },
+    "method/irwm_bev/__init__.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev/__init__.py",
+      "sha256": "8ad1b69dab624549a92afc1244133b7e20896a61047170a1ad8e1cdd9c067421",
+      "bytes": 689
+    },
+    "method/irwm_bev/cache_fill.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev/cache_fill.py",
+      "sha256": "eaf2037dc3b3e4de5ec97d84d0543ff20cdbda6b41fca5d3e69d27ac19bc53d4",
+      "bytes": 4119
+    },
+    "method/irwm_bev/config.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev/config.json",
+      "sha256": "31b195d755bbdfbef80b7433826e3560d27db91a04dfc926825b7c37eea66147",
+      "bytes": 375
+    },
+    "method/irwm_bev/data.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev/data.py",
+      "sha256": "0d2c64ddfdbf6d37241761f0f8b159700adf8c6e1206083f6614b76b1df3e822",
+      "bytes": 7789
+    },
+    "method/irwm_bev/geometry.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev/geometry.py",
+      "sha256": "1f488dd50531ce78e404f866bc36f64b26bd15a5f32117182113bc8b820072b5",
+      "bytes": 2463
+    },
+    "method/irwm_bev/launch.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev/launch.py",
+      "sha256": "29758733da553da638445a0d2afc1161e8d69dc89950af1da44f5c744cdaf089",
+      "bytes": 5497
+    },
+    "method/irwm_bev/loss.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev/loss.py",
+      "sha256": "7a118b68536af3b691ac905f6317845017f02540cf636764035fa2f75283952e",
+      "bytes": 1373
+    },
+    "method/irwm_bev/model.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev/model.py",
+      "sha256": "560bb2d5a82a164f98c0f76681bb6fe6405922c68144dd721903aa9128d6d0b8",
+      "bytes": 6395
+    },
+    "method/irwm_bev/prepare.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev/prepare.py",
+      "sha256": "2745edb6cdc072f417adfa3fb4c65b706c96a5637fe7cdfd6573e0389494c816",
+      "bytes": 8519
+    },
+    "method/irwm_bev/runtime_smoke.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev/runtime_smoke.py",
+      "sha256": "98f8ab350c37d7c73363b3a11a60a06c89f0c5d409d2a5c4fe67dab3464c7f7b",
+      "bytes": 1249
+    },
+    "method/irwm_bev/setup_env.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev/setup_env.py",
+      "sha256": "e463592172c71ec5ed1a19e62636482ac1bcb9c55f475a3678db6e868a86dea8",
+      "bytes": 1564
+    },
+    "method/irwm_bev/tests.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev/tests.py",
+      "sha256": "99589a79d0a4d2b8fa3cddb4583fc47d903e28043a0732e4a9c5036f3270159a",
+      "bytes": 1677
+    },
+    "method/irwm_bev/train.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev/train.py",
+      "sha256": "46d3facc8c867ce79cc6e1d596d7c4b3a0e9564752acb8b18bf03259324e66a2",
+      "bytes": 20517
+    },
+    "method/irwm_bev_t/README.md": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t/README.md",
+      "sha256": "a4662fca3f74b26b4e2fc9ee719bec83135a5668c3545bfa6c2926c73a4ae61c",
+      "bytes": 6974
+    },
+    "method/irwm_bev_t/__init__.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t/__init__.py",
+      "sha256": "c3a661eca4f9afd887d4144cd8460d8a8c475703e95d6c2703a4a4008ede0956",
+      "bytes": 777
+    },
+    "method/irwm_bev_t/benchmark.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t/benchmark.py",
+      "sha256": "6e65bb4299d5fe6ec05f5e14bf9f6df5b184358020ab486d59c43e4e15f1f6f6",
+      "bytes": 7175
+    },
+    "method/irwm_bev_t/config.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t/config.json",
+      "sha256": "fcba6f325326d61f83c25d241937d04120e757d8cd26cf8c2b2aaf08e8ba4eaf",
+      "bytes": 695
+    },
+    "method/irwm_bev_t/data.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t/data.py",
+      "sha256": "1c32ab641489a0fb6c0c00d8ea6f5250eb0526ec0db3a9f2ade705043c1611b1",
+      "bytes": 4104
+    },
+    "method/irwm_bev_t/geometry.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t/geometry.py",
+      "sha256": "1695687cb7c512076cc0081b48d44526033b9f5e7bf99bd796730350cae4816a",
+      "bytes": 2464
+    },
+    "method/irwm_bev_t/inference_latency.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t/inference_latency.py",
+      "sha256": "bb74bcea705fe6c8f89c197843b6ecdc1d8702c6a79ac0cb5c34cde2f629afc8",
+      "bytes": 10857
+    },
+    "method/irwm_bev_t/interface.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t/interface.py",
+      "sha256": "25c6659f44daf338faef0f6c6b7d723da8fd237318322224cc574350538b3e34",
+      "bytes": 2510
+    },
+    "method/irwm_bev_t/latency_session.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t/latency_session.py",
+      "sha256": "409f41c188b79dc16429287771746c1784b5dfc1cd0672a58e269feef530c090",
+      "bytes": 2857
+    },
+    "method/irwm_bev_t/launch.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t/launch.py",
+      "sha256": "ab46f8cae96b8fce8a3f2cab9fdeceb94b450fcf4bd8566e531c6d1b0bdbf232",
+      "bytes": 8831
+    },
+    "method/irwm_bev_t/loss.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t/loss.py",
+      "sha256": "10d1343073e861647290cbee52210f1336518abadfbd90e33f12b223a8439c13",
+      "bytes": 1374
+    },
+    "method/irwm_bev_t/model.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t/model.py",
+      "sha256": "6a563af602629b8af8fa7e02f63842590cc9e6f05035462b7b574caed14500e9",
+      "bytes": 6333
+    },
+    "method/irwm_bev_t/prepare.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t/prepare.py",
+      "sha256": "c08626ee71ad0ec79e7869c9d51d1330b9854c09923c1a76b474db61a92c264e",
+      "bytes": 3440
+    },
+    "method/irwm_bev_t/tests.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t/tests.py",
+      "sha256": "cf37e284950f816f35c198c95aab5ecdf7b6c4793c785712a6b67968afa599bb",
+      "bytes": 4751
+    },
+    "method/irwm_bev_t/train.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t/train.py",
+      "sha256": "0c3f3cd471e0d3a32186c5bad25256043f8d356c961315aa40082a5c977161d8",
+      "bytes": 24101
+    },
+    "method/irwm_bev_t_large/README.md": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t_large/README.md",
+      "sha256": "50b40b7ddd28b262f9755811e1e7e3006d9e64b47f3dbcbbcc37f5f640047235",
+      "bytes": 6812
+    },
+    "method/irwm_bev_t_large/__init__.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t_large/__init__.py",
+      "sha256": "65eb3ecea16d6fd80e1232f67cbe74032aa681aaa05f0a1d0c7e442244954a88",
+      "bytes": 130
+    },
+    "method/irwm_bev_t_large/cache_fill.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t_large/cache_fill.py",
+      "sha256": "c211241d60b799eb5d43da1b1215d4a1dff7a2c4d6fd633af275dc01262dc47a",
+      "bytes": 7886
+    },
+    "method/irwm_bev_t_large/config.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t_large/config.json",
+      "sha256": "3352fda9d00c158fd8e221d911759ebb6b66947a157aff8953b9749060c5f247",
+      "bytes": 1015
+    },
+    "method/irwm_bev_t_large/data.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t_large/data.py",
+      "sha256": "01f18a3565c454d7c082e10b96a89e05b602c7bee9878125b813345ef112031a",
+      "bytes": 1515
+    },
+    "method/irwm_bev_t_large/legacy.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t_large/legacy.py",
+      "sha256": "2282513bb367961dfed2c3ac4eb614319e103fcc1cd0b9a0567a43d9001dc4b2",
+      "bytes": 507
+    },
+    "method/irwm_bev_t_large/loss.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t_large/loss.py",
+      "sha256": "6ac5a1aed6ce812752578a4ed5ee25032d21dad9c9c489413208db130b958d1e",
+      "bytes": 5825
+    },
+    "method/irwm_bev_t_large/model.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t_large/model.py",
+      "sha256": "dbc6fa5a6ac17cfaaf513b33cfcab00420071c613ba52c0bf59c2c456fa8a8c5",
+      "bytes": 7209
+    },
+    "method/irwm_bev_t_large/pipeline.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t_large/pipeline.py",
+      "sha256": "24e10442e00eb54e8b0e5256d3b090f05cc691776e47dea3f41a04e3fe6521da",
+      "bytes": 3873
+    },
+    "method/irwm_bev_t_large/prepare.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t_large/prepare.py",
+      "sha256": "9a9c8a3b9ec476b9281e0270481310ef399fb39c830da0f1416fb2e83cf9df60",
+      "bytes": 13895
+    },
+    "method/irwm_bev_t_large/runtime.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t_large/runtime.py",
+      "sha256": "bee13d453d3362f6c913b9779692a13ddde741e8ac7f7b7fa765001d060b3fc3",
+      "bytes": 518
+    },
+    "method/irwm_bev_t_large/train.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/method/irwm_bev_t_large/train.py",
+      "sha256": "62218b585793ee39ea527340ac56907ec5bcc28c0d42478c9b472a5f90320c80",
+      "bytes": 16565
+    },
+    "evaluation/FULL_DIFFUSION_CARLA_LOADING.md": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/FULL_DIFFUSION_CARLA_LOADING.md",
+      "sha256": "81d14b8c529c0a41f3479742be01b1aa598f29ff56d1ff437958ca1c481adb76",
+      "bytes": 4755
+    },
+    "evaluation/FULL_DIFFUSION_CARLA_PARALLEL.md": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/FULL_DIFFUSION_CARLA_PARALLEL.md",
+      "sha256": "a1ebdf391dee6ffa326aed1a730e978a63fb15b7979b874e0ebe0325b8d2cc17",
+      "bytes": 6494
+    },
+    "evaluation/FULL_DIFFUSION_FAST_100.md": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/FULL_DIFFUSION_FAST_100.md",
+      "sha256": "0b60ea5a11a7538f0aaf0d94c2dbbb1e052624ee33ffcdf7daab6d20876ce4d7",
+      "bytes": 498
+    },
+    "evaluation/attach_tongji_v3_12.sh": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/attach_tongji_v3_12.sh",
+      "sha256": "95613e686cbc50057e855b3a3c42628292d65f712b8a8513f1a688ff697ee927",
+      "bytes": 557
+    },
+    "evaluation/attach_tongji_v3_25.sh": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/attach_tongji_v3_25.sh",
+      "sha256": "4a92aa41f1215e59161c9349b31a0e3a1170597ba3b19b61ac7ddbda5306f1a0",
+      "bytes": 645
+    },
+    "evaluation/bench2drive.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/bench2drive.py",
+      "sha256": "6da39fb742343df1455684d4f867d753e2362e03bab8b9ecabf14c5f34e1f6f1",
+      "bytes": 8248
+    },
+    "evaluation/benchmark_carla_startup.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/benchmark_carla_startup.py",
+      "sha256": "cda8acf3eee05bd10694c3c5f0250f68c7d3a19ba61652bcfce0581cc01b9c58",
+      "bytes": 7780
+    },
+    "evaluation/cached_100_ddim.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/cached_100_ddim.py",
+      "sha256": "1cd1205f96c9ac2ba6df80dd75380f7ee9e20a7675032021d6771ca06e8a3b7c",
+      "bytes": 3161
+    },
+    "evaluation/carla_diagnostics_evaluator.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/carla_diagnostics_evaluator.py",
+      "sha256": "8691ecdc302bd55f0b20d379d102b8e38d4ab4c2f9fc4a3d01276d582bf308ee",
+      "bytes": 3771
+    },
+    "evaluation/carla_eval_resources.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/carla_eval_resources.py",
+      "sha256": "21f01259a25359cf91e43bc10f8cc3085fa669517e841249c3e107b187fe8209",
+      "bytes": 3743
+    },
+    "evaluation/carla_fast_evaluator.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/carla_fast_evaluator.py",
+      "sha256": "f1cb3a21e80fec1f694953d10fea9a8d94cd17f434495bfdb86814146eb29d89",
+      "bytes": 7442
+    },
+    "evaluation/carla_lifecycle.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/carla_lifecycle.py",
+      "sha256": "4505c699e23641256d558803713ec52e0cf99b70bf3e361e3aba08c920474c20",
+      "bytes": 7581
+    },
+    "evaluation/carla_private_runtime.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/carla_private_runtime.py",
+      "sha256": "f7976b8987cc1122ef89938ab20a4bfa331f0efe69719047a065644b37e83e45",
+      "bytes": 4419
+    },
+    "evaluation/carla_route_queue.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/carla_route_queue.py",
+      "sha256": "3b6584de6733fd7e796d6a31938f54a47ed8d15f8f972321a2dd548ee410d501",
+      "bytes": 2939
+    },
+    "evaluation/carla_static_roads.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/carla_static_roads.py",
+      "sha256": "4d0020707df2504e5b1fb581e65a117a7f56ec21482f6fe03d9f7fe1bcab1a83",
+      "bytes": 8322
+    },
+    "evaluation/diagnose_policy_layout.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/diagnose_policy_layout.py",
+      "sha256": "2ab69306ee686287422cbfee83605a64cdf99f5b59aea56ecd0234751e895bc6",
+      "bytes": 2829
+    },
+    "evaluation/fast_carla_io.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/fast_carla_io.py",
+      "sha256": "c5ed61eaaead799bf8a33e0b6a2a88458c44883add55f3a15f85b6e0059a623c",
+      "bytes": 7197
+    },
+    "evaluation/finish_carla_storage_handoff.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/finish_carla_storage_handoff.py",
+      "sha256": "b9475901daebf477eafa8449bba3ae33952460bf04385c3ce4319ebf072346df",
+      "bytes": 4595
+    },
+    "evaluation/full_diffusion2_fast_agent.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/full_diffusion2_fast_agent.py",
+      "sha256": "a0b44a37f900ff8a92def73e34e2566b953579718333de00c9ebce8497ab5f35",
+      "bytes": 5638
+    },
+    "evaluation/full_diffusion_diagnostic_agent.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/full_diffusion_diagnostic_agent.py",
+      "sha256": "5621b17523178e25850bbcdc2c4e1692a409023d2a268f15fd73d13b306d4653",
+      "bytes": 2903
+    },
+    "evaluation/full_diffusion_fast_agent.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/full_diffusion_fast_agent.py",
+      "sha256": "96f5e1bd2f2c230033a60ac78c03d3d1dc3e2390b4c0b6e758e56c688ed5b00f",
+      "bytes": 1587
+    },
+    "evaluation/full_diffusion_parallel_direct_agent.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/full_diffusion_parallel_direct_agent.py",
+      "sha256": "07efb0a18fc555a335b45074ea28b7c773b4fd37b7ff76c9b4d83cd93d35818e",
+      "bytes": 1108
+    },
+    "evaluation/full_diffusion_rpc_agent.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/full_diffusion_rpc_agent.py",
+      "sha256": "e5c3338323a4c68c7e96059658b156cb2904b7d9c523d15642cdb00afab272fc",
+      "bytes": 2582
+    },
+    "evaluation/full_diffusionv3_fast_agent.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/full_diffusionv3_fast_agent.py",
+      "sha256": "f26ffca2293f6d3407b8348fd1f998ef2a1a7b01b199fedb26ae8a59f1d1ef5a",
+      "bytes": 1189
+    },
+    "evaluation/launch_carla_parallel_node.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/launch_carla_parallel_node.py",
+      "sha256": "247e0c6dc415e41d36039d2dced8504a110e758300360cd57938d54e7fc6e939",
+      "bytes": 4338
+    },
+    "evaluation/launch_carla_retest_node.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/launch_carla_retest_node.py",
+      "sha256": "84c9db809c5ab440acd5a33a52eda01e85a5d4eeb84b1b85447a8c74389094c9",
+      "bytes": 4435
+    },
+    "evaluation/launch_fast_carla_node.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/launch_fast_carla_node.py",
+      "sha256": "33c8de42d487aaf0ef5273307f28ee75edb77f84d4b958b87d13d6196f3689ab",
+      "bytes": 5582
+    },
+    "evaluation/launch_full_diffusion2_carla_node.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/launch_full_diffusion2_carla_node.py",
+      "sha256": "9a369256ab285bbefc0594e67fb713234bc9653a082f385656f4b6d65b68880a",
+      "bytes": 7649
+    },
+    "evaluation/launch_full_diffusion2_speed_node.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/launch_full_diffusion2_speed_node.py",
+      "sha256": "1846aaf9c6836cb3e2e783af00fd940a12907ed55b94fe3efb0fe063f7a9dfa6",
+      "bytes": 4302
+    },
+    "evaluation/launch_full_diffusion_carla_node.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/launch_full_diffusion_carla_node.py",
+      "sha256": "8ff9ad37824f0b44fa3d29f09f88469c1844610b4e47eb62ff52c0b91f27aa25",
+      "bytes": 3954
+    },
+    "evaluation/launch_tongji_v3_25.sh": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/launch_tongji_v3_25.sh",
+      "sha256": "636ecdbed05ffea86ad2f5cf696a1a6be4e2df048a812f2d6505eb1e4a4705a8",
+      "bytes": 591
+    },
+    "evaluation/prepare_carla_parallel_run.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/prepare_carla_parallel_run.py",
+      "sha256": "1508059a3f37069852a926e74c7d5cba036cec1da609200d7d559c137ff57559",
+      "bytes": 5973
+    },
+    "evaluation/prepare_carla_retest.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/prepare_carla_retest.py",
+      "sha256": "70eb8c82dd132c5134268066b1cf335c9f3c03d1c42b91b95dd677d57301e221",
+      "bytes": 5142
+    },
+    "evaluation/prepare_fast_carla_run.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/prepare_fast_carla_run.py",
+      "sha256": "dbd56640c3c531e0a2af2ece37b90e3b33cf525e6750ff20bc7d412582b71477",
+      "bytes": 5582
+    },
+    "evaluation/prepare_full_diffusion2_carla.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/prepare_full_diffusion2_carla.py",
+      "sha256": "08b62bdbc8cde50c26e3c592689889c4a70cddc2e6ec01eae9cf5b90cbc57174",
+      "bytes": 11556
+    },
+    "evaluation/recover_carla_route_23670.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/recover_carla_route_23670.py",
+      "sha256": "3a7f12b26143b1a02b9d4c87245ffd1d2fcd5e347293101c43930e5375f5c51b",
+      "bytes": 5852
+    },
+    "evaluation/recover_carla_storage_workers.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/recover_carla_storage_workers.py",
+      "sha256": "6c06f81f70648a2f54587f7784d594c24bb6a5cc1bb71f13c917fb23135606c5",
+      "bytes": 6994
+    },
+    "evaluation/refresh_carla_parallel_allocations.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/refresh_carla_parallel_allocations.py",
+      "sha256": "5951006b9bd58de5a5a3e94336ed262709a7971427b6a0a34765ee5c508d035f",
+      "bytes": 2511
+    },
+    "evaluation/report_carla_loading_validation.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/report_carla_loading_validation.py",
+      "sha256": "4c36abb1066b3323f745372bc8a1432c5391fde86ef6792caa84da14666ab4cd",
+      "bytes": 5518
+    },
+    "evaluation/report_carla_parallel_validation.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/report_carla_parallel_validation.py",
+      "sha256": "851376398278487cb111c7eae8479a5e6dd236917a9495f0f05e30794c7848c8",
+      "bytes": 4664
+    },
+    "evaluation/report_carla_retest.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/report_carla_retest.py",
+      "sha256": "4e5abae914d7a74ab96a785e733e3ff6bb523009e4f4fca7b1a6270e4fd2d541",
+      "bytes": 7160
+    },
+    "evaluation/run_carla_parallel.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/run_carla_parallel.py",
+      "sha256": "3a78f47904c3c0b2e1f7ee881cfaab57d947d600748165b4edc1a6f6e994552a",
+      "bytes": 21183
+    },
+    "evaluation/run_full_diffusion2_carla.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/run_full_diffusion2_carla.py",
+      "sha256": "10f5acd8210e04837e11dd74355f24b65778fd10246404cc68b11b2251105f94",
+      "bytes": 27382
+    },
+    "evaluation/run_full_diffusion_carla.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/run_full_diffusion_carla.py",
+      "sha256": "192bae5a5d9813b13bc88df04ba2abd62fbd21ffcfbd6b517f9f198df3c8c222",
+      "bytes": 14975
+    },
+    "evaluation/run_full_diffusion_carla_fast.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/run_full_diffusion_carla_fast.py",
+      "sha256": "3a51bc22cdfb63a30c81f04797a8571b00851f2836a566833e154608148e0c9d",
+      "bytes": 20985
+    },
+    "evaluation/run_full_diffusion_carla_warm.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/run_full_diffusion_carla_warm.py",
+      "sha256": "c27088f03997213b770c6073854195cc749a4d618a2ff5300793587708ddb82c",
+      "bytes": 11702
+    },
+    "evaluation/run_full_diffusionv3_12_slurm.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/run_full_diffusionv3_12_slurm.py",
+      "sha256": "09cdcbd7cd987839adfdd2dc92da4e9c85bea8a5b0c7c80fd2de180fd09c6f18",
+      "bytes": 25810
+    },
+    "evaluation/run_full_diffusionv3_slurm.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/run_full_diffusionv3_slurm.py",
+      "sha256": "4512de2236e7dcc5203fd7d1e4d7e5dd9fa8de85287e2c8901033116fbe42c1f",
+      "bytes": 23108
+    },
+    "evaluation/run_loading_comparison.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/run_loading_comparison.py",
+      "sha256": "3bf721ddb69734d0391e4029aa23c155f88ad344bca5a30f06a3550c91240912",
+      "bytes": 4782
+    },
+    "evaluation/shared_gpu_inference.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/shared_gpu_inference.py",
+      "sha256": "bbe48b4d0dc6bd6aa938729d95f75145ca50c96fe01f6c8a8a53ceae160444a8",
+      "bytes": 8618
+    },
+    "evaluation/stop_full_diffusion_carla.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/stop_full_diffusion_carla.py",
+      "sha256": "78001a472fd15812d70ebe5b9d142d181afbb5a0288765f6c07a536bbad184ff",
+      "bytes": 6687
+    },
+    "evaluation/summarize_full_diffusion_carla.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/summarize_full_diffusion_carla.py",
+      "sha256": "78bcb46d336aa07e68f57734ecf78089a4e81e8c799cfa925f7b93f13d6e5382",
+      "bytes": 10042
+    },
+    "evaluation/summarize_parallel_carla.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/summarize_parallel_carla.py",
+      "sha256": "8f3b75dad3f2cf37473da317c55491eba57c720db59f5821e739ea3693408245",
+      "bytes": 6657
+    },
+    "evaluation/tongji_slurm.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/tongji_slurm.py",
+      "sha256": "d0b33c84e05dbd1f0b239018dc2d224227ee6f7c93dec8a4fd9a10f9d97747d4",
+      "bytes": 11835
+    },
+    "evaluation/tongji_v3_12_in_job.sh": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/tongji_v3_12_in_job.sh",
+      "sha256": "ead069afdb01ed0c0e4d5303bebbb32d829b40bafac00f531a7945f2dafcee34",
+      "bytes": 965
+    },
+    "evaluation/tongji_v3_in_job.sh": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/tongji_v3_in_job.sh",
+      "sha256": "d894f8c3b61b5978a5e1e61fa5a6b7dcbcc9cb99378a6802ed019c19e37567d8",
+      "bytes": 1048
+    },
+    "evaluation/validate_fast_at_route_boundary.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/validate_fast_at_route_boundary.py",
+      "sha256": "c976ca4810cf905003cd5941b82905e6adbf5310c2a97bcf80dbf7af375bc9cc",
+      "bytes": 3548
+    },
+    "evaluation/verify_carla_lifecycle.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/verify_carla_lifecycle.py",
+      "sha256": "e92913107e6f7e001286e6d264093ad3bcf452f1c7db27e408bd8e04b179f774",
+      "bytes": 8878
+    },
+    "evaluation/verify_disk_road_cache.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/verify_disk_road_cache.py",
+      "sha256": "8da92ddd0bcb470117519ca2a31c9e7ea57153a50f28ab5e5bf42edb6f7016cd",
+      "bytes": 3615
+    },
+    "evaluation/verify_fast_overheads.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/verify_fast_overheads.py",
+      "sha256": "93735c3954d5eb781f7757a1428d62021791cdb4a073678503a3c9111f1b9752",
+      "bytes": 11825
+    },
+    "evaluation/verify_parallel_queue.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/verify_parallel_queue.py",
+      "sha256": "ace550e81aa996dd62a56fce6221315f9118da137268610e673bb0c4942a9d99",
+      "bytes": 2626
+    },
+    "evaluation/verify_parallel_queue_nodes.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/verify_parallel_queue_nodes.py",
+      "sha256": "a1fca0d052d26ec8ca34566c1c55008060eb26f08ad8b0f723a032db342f9178",
+      "bytes": 2124
+    },
+    "evaluation/verify_shared_gpu_policy.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/evaluation/verify_shared_gpu_policy.py",
+      "sha256": "f5d923431a558321defc44e55f4e862394c3bddd9ff5425815ec36e83698c097",
+      "bytes": 4690
+    },
+    "tests/test_full_diffusion.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/tests/test_full_diffusion.py",
+      "sha256": "82fd5f0f351e2c76cbc40e1b3db373e1fbfe40de5bb836fcef062ba062e84314",
+      "bytes": 7529
+    },
+    "tests/test_full_diffusion2.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/tests/test_full_diffusion2.py",
+      "sha256": "7e3f79bb9d4290e3f2ce1483db4217dc6a920d83bfcdac28c5df66e90a9fab5c",
+      "bytes": 16979
+    },
+    "tests/test_full_diffusion2_storage.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/tests/test_full_diffusion2_storage.py",
+      "sha256": "4a54d5e7caed6eac3d30d1f7ce9de7d543fa41ddbaeb4ab0c421deade4d7e974",
+      "bytes": 6958
+    },
+    "tests/test_full_diffusionv3.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/tests/test_full_diffusionv3.py",
+      "sha256": "6f5e2d08db23c97925f3a95c5c789404ab2f944d0c7a50fb099905b91309f665",
+      "bytes": 40715
+    },
+    "tests/test_full_diffusionv4.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/tests/test_full_diffusionv4.py",
+      "sha256": "d61b256f3678a6ea49c833f700fd3cd2c3e388c70fb5d7a9aba7313b836e8ca4",
+      "bytes": 17545
+    },
+    "tests/test_full_diffusionv4_joint.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/tests/test_full_diffusionv4_joint.py",
+      "sha256": "e842e72e84dc31fef90c4192a6c0e6a5d80588cb19f408129f97c7f9408a226d",
+      "bytes": 8484
+    },
+    "tests/test_irwm_bev_t_large.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/tests/test_irwm_bev_t_large.py",
+      "sha256": "51c9bd12e1142a3594f06699e304887dfd62d1a9da7ec5cb434d3f36aa5cefbf",
+      "bytes": 15673
+    },
+    "tools/prepare_v4_normalization.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/tools/prepare_v4_normalization.py",
+      "sha256": "f94fb8e636d6b40e66f7eafdcd37d24a49a77a5c0d873edcee059fe19694b952",
+      "bytes": 1271
+    },
+    "tools/smoke_v4_irwm.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/tools/smoke_v4_irwm.py",
+      "sha256": "d9448f5d8ac6b9e89380310993028bfdbc8c7e7e0f7bc7e55566aa2333599aa2",
+      "bytes": 7132
+    },
+    "tools/verify_v4_trained_world.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/tools/verify_v4_trained_world.py",
+      "sha256": "16d0b72d676e9d57c6e42a1197d068d38807669b8dfad3e9ec20c78a08614f3c",
+      "bytes": 12776
+    },
+    "tools/verify_v4_bcde_tongji.sh": {
+      "source": "/share/home/u21012/nixiran/WAMPC/tools/verify_v4_bcde_tongji.sh",
+      "sha256": "d966def4c2a29221a66510a3ca78ebda9f0190e1b2c2b06303184693fdbb50af",
+      "bytes": 2500
+    },
+    "tools/verify_v4_irwm.sh": {
+      "source": "/share/home/u21012/nixiran/WAMPC/tools/verify_v4_irwm.sh",
+      "sha256": "b4b33620773e322e8321dffab5263d35175d51dbb860d1c481ea33992dc7d9da",
+      "bytes": 320
+    },
+    "tools/fetch_irwm_bev_t.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/tools/fetch_irwm_bev_t.py",
+      "sha256": "996bead4b927fb435da0fd6265676fbc3e6ceae59ff6aa5401634b72481cb022",
+      "bytes": 3420
+    },
+    "tools/audit_full_diffusion.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/tools/audit_full_diffusion.py",
+      "sha256": "d8d0c26b9c912a1a3b0659dd79b85400c4ffc19d2d547f5a6554443770782f5d",
+      "bytes": 9047
+    },
+    ".gitmodules": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.gitmodules",
+      "sha256": "924d7f165128b30512be56548a3c13c368e4fdda887e68063022084840776c6f",
+      "bytes": 132
+    },
+    "requirements-full-diffusion.txt": {
+      "source": "/share/home/u21012/nixiran/WAMPC/requirements-full-diffusion.txt",
+      "sha256": "8ac255c4a278498a00c6c11e467680c1e5bb9bbfbb0aefa9a17cf162a04a01ce",
+      "bytes": 436
+    },
+    "requirements-bench2drive.txt": {
+      "source": "/share/home/u21012/nixiran/WAMPC/requirements-bench2drive.txt",
+      "sha256": "cfec54a2ecf8aca00be10dfc391f33d0a5c559e6757ff60413da3b2cc1ca0ba8",
+      "bytes": 345
+    },
+    "configs/paths.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/configs/paths.json",
+      "sha256": "d4eea21ed6b2d1d5a28f28c9549e71efd390873d383bf4d48f2e6ad5a45042d8",
+      "bytes": 257
+    },
+    "docs/README.upstream.md": {
+      "source": "/share/home/u21012/nixiran/WAMPC/README.md",
+      "sha256": "3cb5746269ac633473e8a83e0f57aa9c64f97b40aaad1a3e23dd5b407cc98059",
+      "bytes": 4476
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/completed.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/ckps/full_diffusionv4/tongji_bcde_joint_seed901_20261112/completed.json",
+      "sha256": "202da65a88ac47bdc78f8f703ab6ee7e2eaa7d30a284940f1e7805b92ae1180c",
+      "bytes": 433
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/config.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/ckps/full_diffusionv4/tongji_bcde_joint_seed901_20261112/config.json",
+      "sha256": "c6d3ff83829f090e91b3c9e75ce06ead6ca29526811b3d1a6a7972e053d9e3e2",
+      "bytes": 4203
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/dataset.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/ckps/full_diffusionv4/tongji_bcde_joint_seed901_20261112/dataset.json",
+      "sha256": "1735a388bfd8f2844930189521411e7241471a48f6f45f6a26780148d025fb85",
+      "bytes": 644
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/optimizer_groups.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/ckps/full_diffusionv4/tongji_bcde_joint_seed901_20261112/optimizer_groups.json",
+      "sha256": "a298ba445d3203c0d8d8bf892bfca1c2d1b79dc5ef68df575d4c009a47327f9e",
+      "bytes": 16437
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/startup.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/ckps/full_diffusionv4/tongji_bcde_joint_seed901_20261112/startup.json",
+      "sha256": "3d2545407420ae10e331a99e451eaa5475959cdc45875b18a8fdd5ceda5204c9",
+      "bytes": 26530
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/train.jsonl": {
+      "source": "/share/home/u21012/nixiran/WAMPC/ckps/full_diffusionv4/tongji_bcde_joint_seed901_20261112/train.jsonl",
+      "sha256": "d77cca8a89a8ddb632c86cbb114baa6db587377e5e64e490164579bf22973169",
+      "bytes": 144436
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/validation.jsonl": {
+      "source": "/share/home/u21012/nixiran/WAMPC/ckps/full_diffusionv4/tongji_bcde_joint_seed901_20261112/validation.jsonl",
+      "sha256": "bf8e6e0d8851ea69a77d6b99320be1a2a27aae92bd29ad070e1eaf3e1ff18675",
+      "bytes": 2578
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/train.log": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/train.log",
+      "sha256": "bceedf85f85f17e73ee1abaf143bbec6eb66fff6cce418f131579aeb185c15a0",
+      "bytes": 147273
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/diagnostics/prepare.log": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/prepare.log",
+      "sha256": "3282fcfc4971fcdc7079ed21215a9201b1c5112c4c4b9157fe23ea1c89427860",
+      "bytes": 10824
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/diagnostics/unit.log": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/unit.log",
+      "sha256": "2f0f2164045648a1698e5e17dbb49f2c5b52deb1b0508ca294f8c9538434e1c5",
+      "bytes": 781
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/diagnostics/benchmark.log": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/benchmark.log",
+      "sha256": "63c7371eeaa3b4d6103ab576125aa4532cd0ca1737b3d787ce237382197e9372",
+      "bytes": 712
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/diagnostics/benchmark_final.log": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/benchmark_final.log",
+      "sha256": "b87c1cc659cfd9f4110f7dac9b97b2dc7c94bc3850fa3c54d7468c815f80a64b",
+      "bytes": 374
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/diagnostics/ddp_smoke.log": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/ddp_smoke.log",
+      "sha256": "9901981fa2525500c32cf8a19cfd8bb40a29a6c71aa5274bb9764431ded6ba77",
+      "bytes": 15805
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/diagnostics/final_check.log": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/final_check.log",
+      "sha256": "77f7bfa16ff154c3b452ae48be221ba0089e8a7d49aadacdcc378f275b5cb14e",
+      "bytes": 29
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/diagnostics/final_check_shutdown_failure.log": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/final_check_shutdown_failure.log",
+      "sha256": "986355b22b065a6f28ecc442e9da011ddfd54d0be1a52caf2a0b1892a1e521f2",
+      "bytes": 13686
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/diagnostics/launcher.log": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/launcher.log",
+      "sha256": "4c7b7d5b6351c7186cfc8fef3e40d3bf2a32aff2b426f9d923bd39af971bab0f",
+      "bytes": 617
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/diagnostics/audit_start.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/audit_start.json",
+      "sha256": "024acde79784ae9c53d425b71a5ee33d72f42df64d8f93e5a32b8ba0a273373f",
+      "bytes": 647
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/diagnostics/launcher.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/launcher.json",
+      "sha256": "92b482543a5ba4ceb36dda3c477263fa735ebe03223157e568e1cc545c84757c",
+      "bytes": 370
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/diagnostics/formal_started.txt": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/formal_started.txt",
+      "sha256": "2325447d10ab0d3a3d24375604edc080d19f6f9969867ad016f3059c48c5df44",
+      "bytes": 26
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/diagnostics/formal_finished.txt": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/formal_finished.txt",
+      "sha256": "5f32552561de27c5113622482e37a0c53ccf2860bc581554521a13d67e1c5220",
+      "bytes": 26
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/diagnostics/gpu_telemetry.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/gpu_telemetry.json",
+      "sha256": "0556c57f1a6b7974455d90be8167170bd57d5bc4abf23ad8127985b1f79c42e8",
+      "bytes": 1322
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/diagnostics/steady_health.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/steady_health.json",
+      "sha256": "f1dc753bd5fd1b70a4c390bc15e588d0fa19194ebd9ee2c65cc789ebf16c0af1",
+      "bytes": 2816
+    },
+    "runs/tongji_bcde_joint_seed901_20261112/diagnostics/startup_health_snapshot.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/startup_health_snapshot.json",
+      "sha256": "636ad84deee302ea1803f3340c40499ec9a001d1780f7f12b6e756c35817839e",
+      "bytes": 4414
+    },
+    "scripts/original/prepare.sh": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/prepare.sh",
+      "sha256": "5aa759d3a096b478f460eb3154caef78a46e2f92ec55321db5d77229c6b9ab98",
+      "bytes": 525
+    },
+    "scripts/original/benchmark.sh": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/benchmark.sh",
+      "sha256": "27237c78713b5e2943e255be3a81a38408a06ad511647d73fc9e1804b1c36bf3",
+      "bytes": 487
+    },
+    "scripts/original/benchmark_final.sh": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/benchmark_final.sh",
+      "sha256": "b7c472c24f9b1bfa41385ca94e4362b553d75242c88a85370dee1acffee3b404",
+      "bytes": 488
+    },
+    "scripts/original/ddp_smoke.sh": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/ddp_smoke.sh",
+      "sha256": "f6f6f6386d6aa5158d7276736404fff11eb8b3cbce441902148ee4ce5c55f85e",
+      "bytes": 674
+    },
+    "scripts/original/unit.sh": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/unit.sh",
+      "sha256": "a08af86918a057ccf7483c7346b498b377a7518c7d98d8fe4ac041456990c4c8",
+      "bytes": 300
+    },
+    "scripts/original/train.sh": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/train.sh",
+      "sha256": "e7cef24c817c8d4ab6271b7d845a147ecc842d5fdbc0c78e8f5bf0a0bce333d1",
+      "bytes": 997
+    },
+    "scripts/original/audit_start.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/v4_joint_train_20261112/audit_start.py",
+      "sha256": "ae25f8f60f95cfe5dba8e5ea0cd5efbdc7c11b2d8b3ba96db00759162bf23726",
+      "bytes": 4483
+    },
+    "scripts/original/activate_tongji_v3.sh": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/activate_tongji_v3.sh",
+      "sha256": "c140bf88acdaa4f3a295d113f0b92dcfbc4cb42e2d708540c5427be1995e1a45",
+      "bytes": 1268
+    },
+    "artifacts/dataset_index/source/manifest.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/data/irwm_bev_t/pdm_seed901_dev44_dt05_tongji_v1/manifest.json",
+      "sha256": "06ce9261efb67383b089a28e84875fed30aa9f7d446f5aabc32f3d077313eb3a",
+      "bytes": 3406
+    },
+    "artifacts/dataset_index/source/routes.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/data/irwm_bev_t/pdm_seed901_dev44_dt05_tongji_v1/routes.json",
+      "sha256": "de6e32e33dde2f628ddb21e4db568bb2b30907db4a460f292be8340df4b4cdc6",
+      "bytes": 343169
+    },
+    "artifacts/dataset_index/source/source_routes.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/data/irwm_bev_t/pdm_seed901_dev44_dt05_tongji_v1/source_routes.json",
+      "sha256": "e7e15b2d1f3dfcca462b3eaf6315f6d4b95bc8f923e6530b295404d0bfb9fcb7",
+      "bytes": 357090
+    },
+    "artifacts/dataset_index/source/split.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/data/irwm_bev_t/pdm_seed901_dev44_dt05_tongji_v1/split.json",
+      "sha256": "c3c92b4a760f207d5542a49efca9c682aa9b9803b0f05adb5f49a6da828810a3",
+      "bytes": 161442
+    },
+    "artifacts/dataset_index/source/train.npy": {
+      "source": "/share/home/u21012/nixiran/WAMPC/data/irwm_bev_t/pdm_seed901_dev44_dt05_tongji_v1/train.npy",
+      "sha256": "c795196ac8f58c6827f07873728323835d9d73f4a1524d2c99bab6175584dbbb",
+      "bytes": 1780984
+    },
+    "artifacts/dataset_index/source/val.npy": {
+      "source": "/share/home/u21012/nixiran/WAMPC/data/irwm_bev_t/pdm_seed901_dev44_dt05_tongji_v1/val.npy",
+      "sha256": "bae9a3ea2c0a3c9bbd8293a0929b6b859a28c1a2e1666407e09eaab5ac509fd5",
+      "bytes": 15376
+    },
+    "artifacts/dataset_index/source/required_frames.npy": {
+      "source": "/share/home/u21012/nixiran/WAMPC/data/irwm_bev_t/pdm_seed901_dev44_dt05_tongji_v1/required_frames.npy",
+      "sha256": "9d5274e5c720652bae57ca48d5e30af2ab1dbd490e4b5195edbede5b01b4eb82",
+      "bytes": 3863376
+    },
+    "artifacts/dataset_index/prepared/manifest.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/data/full_diffusionv4/pdm_seed901_bcde_v1/manifest.json",
+      "sha256": "4ad0652652506d0d467f701ab1cbb7e612877d3d40ef876a978b5da61fc4c9a8",
+      "bytes": 415443
+    },
+    "artifacts/dataset_index/prepared/routes.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/data/full_diffusionv4/pdm_seed901_bcde_v1/routes.json",
+      "sha256": "7d8e98c78ce502999777c09aa819281568e92aeba882bdaf36f40baa57a0e09f",
+      "bytes": 333478
+    },
+    "artifacts/dataset_index/prepared/train.npy": {
+      "source": "/share/home/u21012/nixiran/WAMPC/data/full_diffusionv4/pdm_seed901_bcde_v1/train.npy",
+      "sha256": "169605bf4c4ffd2802689d557aa071971458991f301cf7b76086d151356b0b86",
+      "bytes": 1780984
+    },
+    "artifacts/dataset_index/prepared/val.npy": {
+      "source": "/share/home/u21012/nixiran/WAMPC/data/full_diffusionv4/pdm_seed901_bcde_v1/val.npy",
+      "sha256": "e7e8539c77bc2df6282ceaa211b3ffaa77c2331bcdf5c44ccefecaf5463676e2",
+      "bytes": 15376
+    },
+    "artifacts/dataset_index/prepared/context_complete.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/data/full_diffusionv4/pdm_seed901_bcde_v1/context/complete.json",
+      "sha256": "d4fdaa75a9605b60355dab1a3b8c21c54f0ce4d970ea7cc6db1048a2c5a0e73e",
+      "bytes": 327
+    },
+    "artifacts/dataset_index/source_metadata.zip": {
+      "source": "/share/home/u21012/nixiran/WAMPC/.runtime/github_v4_publication_20261112/source_metadata.zip",
+      "sha256": "2e03cba7471f0ffa773e098a8a34de949ca115b34b1a64a6179b6d5c2f0d52e6",
+      "bytes": 11128478
+    },
+    "vendor/bridgedrive/modules/blocks.py": {
+      "source": "/share/home/u21012/nixiran/BridgeDrive/BridgeDrive_adaptation_DiffusionDrive/navsim/agents/diffusiondrive/modules/blocks.py",
+      "sha256": "de879c63cbfaf8fe96437cb84f4a9c28392625ec6706132032afceed4ffc2776",
+      "bytes": 4257
+    },
+    "vendor/bridgedrive/modules/conditional_unet1d.py": {
+      "source": "/share/home/u21012/nixiran/BridgeDrive/BridgeDrive_adaptation_DiffusionDrive/navsim/agents/diffusiondrive/modules/conditional_unet1d.py",
+      "sha256": "0d6d589fb29d6e076b77bddbb3d7ab6b86c216c29e13391fb532d661a13f5cf7",
+      "bytes": 10056
+    },
+    "vendor/bridgedrive/LICENSE": {
+      "source": "/share/home/u21012/nixiran/BridgeDrive/BridgeDrive_adaptation_DiffusionDrive/LICENSE",
+      "sha256": "13f571790aa19bb558dbca0fe70cc0db6c09b75b47d5e5e23a1daa4441fc8ca7",
+      "bytes": 1072
+    },
+    "third_party/carla_navigation_0_9_15/agents/__init__.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/third_party/carla_navigation_0_9_15/agents/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "third_party/carla_navigation_0_9_15/agents/navigation/__init__.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/third_party/carla_navigation_0_9_15/agents/navigation/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "third_party/carla_navigation_0_9_15/agents/navigation/basic_agent.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/third_party/carla_navigation_0_9_15/agents/navigation/basic_agent.py",
+      "sha256": "7eb47c0ac30f36e2e71266e918c27fc02c8ff7b74d8f75259c313022e50be2ff",
+      "bytes": 20958
+    },
+    "third_party/carla_navigation_0_9_15/agents/navigation/behavior_agent.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/third_party/carla_navigation_0_9_15/agents/navigation/behavior_agent.py",
+      "sha256": "7dd309893e16d295dcbad4bd040a42b2263c8585afa8536af8de30fa9b385933",
+      "bytes": 14391
+    },
+    "third_party/carla_navigation_0_9_15/agents/navigation/behavior_types.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/third_party/carla_navigation_0_9_15/agents/navigation/behavior_types.py",
+      "sha256": "736023a51a16ea127da12926d4f19b84fb4b3aeb980de2dfd8cc1efc35789684",
+      "bytes": 888
+    },
+    "third_party/carla_navigation_0_9_15/agents/navigation/constant_velocity_agent.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/third_party/carla_navigation_0_9_15/agents/navigation/constant_velocity_agent.py",
+      "sha256": "723ec7aec5e27e62b59f223646fd5b0d08345732ee8c22e3348dec575f5545b0",
+      "bytes": 5886
+    },
+    "third_party/carla_navigation_0_9_15/agents/navigation/controller.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/third_party/carla_navigation_0_9_15/agents/navigation/controller.py",
+      "sha256": "f95f427a5ad5ba50a96f6971df72a5f3ec078c8457b0ba2a12558396e8b5c402",
+      "bytes": 9433
+    },
+    "third_party/carla_navigation_0_9_15/agents/navigation/global_route_planner.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/third_party/carla_navigation_0_9_15/agents/navigation/global_route_planner.py",
+      "sha256": "9b164a2de723d91d55cd1203543747580c1c6c509ed0294a6de17b001f7db8d0",
+      "bytes": 19096
+    },
+    "third_party/carla_navigation_0_9_15/agents/navigation/local_planner.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/third_party/carla_navigation_0_9_15/agents/navigation/local_planner.py",
+      "sha256": "7a5db9112b0d107038765abfb87b2d7a418b98e4d2c0aa92a4aade53c95b319f",
+      "bytes": 13959
+    },
+    "third_party/carla_navigation_0_9_15/agents/tools/__init__.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/third_party/carla_navigation_0_9_15/agents/tools/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "third_party/carla_navigation_0_9_15/agents/tools/misc.py": {
+      "source": "/share/home/u21012/nixiran/WAMPC/third_party/carla_navigation_0_9_15/agents/tools/misc.py",
+      "sha256": "7e453c513c742a1ff3c8f3604fe55adafac2c682753093262e7f402e9ec1b72b",
+      "bytes": 5836
+    },
+    "third_party/carla_navigation_0_9_15/source.json": {
+      "source": "/share/home/u21012/nixiran/WAMPC/third_party/carla_navigation_0_9_15/source.json",
+      "sha256": "892edce0500207f8ece811c0baf953a68e7facb21419385e5c627703066cc7ce",
+      "bytes": 1759
+    },
+    "docs/licenses/carla_garage.LICENSE": {
+      "source": "/share/home/u21012/nixiran/WAMPC/third_party/carla_garage/LICENSE",
+      "sha256": "8923a465a7892dd3a8977a9a70255fb7d4c0d5c6f94081d7dcaf231d09e99646",
+      "bytes": 1140
+    },
+    "third_party/carla_navigation_0_9_15/LICENSE": {
+      "source": "/share/home/u21012/gjc/carla/LICENSE",
+      "sha256": "a0c8e9d596b044a27ba1f8ad831f0de9955686c463bf79e52e798df886417386",
+      "bytes": 1133
+    }
+  }
+}

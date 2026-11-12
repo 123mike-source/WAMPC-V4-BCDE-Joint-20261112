@@ -1,0 +1,11 @@
+test_batched_pose_interpolation_matches_existing_store_and_resets (test_full_diffusionv4_joint.StreamTests) ... ok
+test_rank_pools_are_disjoint_and_prefetch_resume_uses_consumed_cursor (test_full_diffusionv4_joint.StreamTests) ... ok
+test_checkpoint_and_direct_gradients_match (test_full_diffusionv4_joint.WorldTuningTests) ... ok
+test_last_horizon_backpropagates_through_earlier_states_only_selected_parameters (test_full_diffusionv4_joint.WorldTuningTests) ... ok
+test_same_five_maps_as_original_fp32_recurrence (test_full_diffusionv4_joint.WorldTuningTests) ... ok
+test_tuned_state_roundtrip_and_frozen_weights_stay_identical (test_full_diffusionv4_joint.WorldTuningTests) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 8.347s
+
+OK

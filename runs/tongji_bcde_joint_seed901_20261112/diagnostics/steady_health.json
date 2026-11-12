@@ -1,0 +1,130 @@
+{
+  "time": "2026-11-12T18:48:05.353674+08:00",
+  "utilization_samples": {
+    "0": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "1": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "2": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "3": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "4": [
+      74.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      0.0
+    ],
+    "5": [
+      92.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+    ],
+    "6": [
+      73.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      0.0
+    ],
+    "7": [
+      68.0,
+      100.0,
+      100.0,
+      98.0,
+      90.0,
+      0.0
+    ]
+  },
+  "records": [
+    {
+      "epoch": 0,
+      "step_in_epoch": 20,
+      "updates": 20,
+      "best_future_ade_m": null,
+      "validation_pending": false,
+      "loss": 3.1861250400543213,
+      "spatial_l1": 0.5571749210357666,
+      "temporal_delta_l1": 1.1848773956298828,
+      "behavior_ce": 0.6479879021644592,
+      "future_ready_global": 896,
+      "global_batch": 1024,
+      "seconds_per_update": 2.8733580112457275,
+      "samples_per_second": 356.3774496572569,
+      "data_wait_seconds": 0.003094760701060295,
+      "peak_allocated_gib": 10.611682891845703,
+      "world_gradient_norm": 1.7141979924417683e-06,
+      "gradient_norm": 26.768840789794922
+    },
+    {
+      "epoch": 0,
+      "step_in_epoch": 40,
+      "updates": 40,
+      "best_future_ade_m": null,
+      "validation_pending": false,
+      "loss": 2.835426092147827,
+      "spatial_l1": 0.5208448171615601,
+      "temporal_delta_l1": 1.036914348602295,
+      "behavior_ce": 0.601881206035614,
+      "future_ready_global": 908,
+      "global_batch": 1024,
+      "seconds_per_update": 1.0907800197601318,
+      "samples_per_second": 938.7777383611985,
+      "data_wait_seconds": 0.0029578767716884613,
+      "peak_allocated_gib": 10.611682891845703,
+      "world_gradient_norm": 9.644672900321893e-06,
+      "gradient_norm": 26.56257438659668
+    },
+    {
+      "epoch": 0,
+      "step_in_epoch": 60,
+      "updates": 60,
+      "best_future_ade_m": null,
+      "validation_pending": false,
+      "loss": 2.3424010276794434,
+      "spatial_l1": 0.47024235129356384,
+      "temporal_delta_l1": 0.8220419883728027,
+      "behavior_ce": 0.570187509059906,
+      "future_ready_global": 907,
+      "global_batch": 1024,
+      "seconds_per_update": 1.1223458051681519,
+      "samples_per_second": 912.3747736969378,
+      "data_wait_seconds": 0.0030691251158714294,
+      "peak_allocated_gib": 10.757896423339844,
+      "world_gradient_norm": 2.8908090826007538e-05,
+      "gradient_norm": 23.26178741455078
+    }
+  ],
+  "latest_checkpoint": true,
+  "fatal": false
+}

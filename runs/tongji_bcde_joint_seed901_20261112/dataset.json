@@ -1,0 +1,14 @@
+{
+  "prepared_identity": "5d30a737343e797b09bc6fc22e4c6262f6b441643121b5dd9d24126a626e2efe",
+  "train_samples": 222607,
+  "val_samples": 1906,
+  "source_sha256": {
+    "manifest.json": "06ce9261efb67383b089a28e84875fed30aa9f7d446f5aabc32f3d077313eb3a",
+    "routes.json": "de6e32e33dde2f628ddb21e4db568bb2b30907db4a460f292be8340df4b4cdc6",
+    "train.npy": "c795196ac8f58c6827f07873728323835d9d73f4a1524d2c99bab6175584dbbb",
+    "val.npy": "bae9a3ea2c0a3c9bbd8293a0929b6b859a28c1a2e1666407e09eaab5ac509fd5",
+    "split.json": "c3c92b4a760f207d5542a49efca9c682aa9b9803b0f05adb5f49a6da828810a3"
+  },
+  "world_size": 8,
+  "steps_per_epoch": 218
+}

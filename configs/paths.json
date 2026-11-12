@@ -1,0 +1,7 @@
+{
+  "carla_root": "/share/home/u21012/gjc/carla",
+  "garage_root": "/share/home/u21012/data/bench2drive-PDMlite",
+  "routes": "leaderboard/data/bench2drive220.xml",
+  "checkpoint_root": "ckps",
+  "results_root": "/share/home/u21012/nixiran/WAMPC/results"
+}

@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "metadata_routes": 4844,
+  "exact_index_arrays": true,
+  "path_relocation": true,
+  "repeat_run_idempotent": true,
+  "conflicting_index_refused": true,
+  "training_source_directory_modified": false
+}

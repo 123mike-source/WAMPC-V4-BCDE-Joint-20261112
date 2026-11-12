@@ -1,0 +1,39 @@
+{
+  "run": "tongji_bcde_joint_seed901_20261112",
+  "status": "completed",
+  "epochs": 10,
+  "updates": 2180,
+  "training_started": "2026-11-12T18:43:44+08:00",
+  "training_finished": "2026-11-12T19:50:44+08:00",
+  "elapsed_seconds": 4020,
+  "hardware": {
+    "gpus": "8 x NVIDIA L40",
+    "node": "gpu4034",
+    "slurm_job_id": 3426091
+  },
+  "best_selection": "minimum route-macro validation future ADE",
+  "best": {
+    "epoch": 5,
+    "spatial_ade_m": 0.05797066983901061,
+    "future_ade_m": 1.3972659372014051,
+    "temporal_delta_l1_m": 0.39175998002893664,
+    "behavior_accuracy": 0.7129702249860534,
+    "routes": 44,
+    "sequences": 1906,
+    "aggregation": "route_macro",
+    "inference_steps": 25
+  },
+  "final": {
+    "spatial_ade_m": 0.061230671162547004,
+    "future_ade_m": 1.4550219367593955,
+    "temporal_delta_l1_m": 0.39518926157926854,
+    "behavior_accuracy": 0.7143527950247964,
+    "routes": 44,
+    "sequences": 1906,
+    "aggregation": "route_macro",
+    "inference_steps": 25
+  },
+  "last_logged_training_loss": 1.0882669687271118,
+  "validation_scope": "offline dev validation; no new CARLA closed-loop score is reported",
+  "checkpoints_in_this_repository": false
+}
