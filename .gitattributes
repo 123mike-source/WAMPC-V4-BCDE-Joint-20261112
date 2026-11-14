@@ -1,0 +1,1 @@
+ckpt/irwm_bev_t_large/*.pt filter=lfs diff=lfs merge=lfs -text

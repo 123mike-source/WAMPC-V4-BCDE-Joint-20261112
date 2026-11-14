@@ -1,0 +1,505 @@
+{
+  "source": "ckps/irwm_bev_t_large/tongji_bcde_seed901_20261111/best.pt",
+  "path": "/share/home/u21012/nixiran/WAMPC/ckps/irwm_bev_t_large/release/best.pt",
+  "bytes": 178237189,
+  "sha256": "b83eba4a33bb90031c43fea668087346a7e5a6af8aada53a8c5094f6f0703c2a",
+  "teacher_sha256": "0ff5062a234f5919385957c4b46df8a10adcf09a88a427198e0e2e655b5935cb",
+  "progress": {
+    "epoch": 21,
+    "next_batch": 0,
+    "updates": 146076,
+    "best_nmse": 0.04190379475213616,
+    "validation_pending": false
+  },
+  "metrics": {
+    "routes": 44,
+    "sequences": 1906,
+    "model": {
+      "nmse": 0.04190379475213616,
+      "mse": 0.612298794389061,
+      "corridor_nmse": 0.030679102029195535,
+      "cosine": 0.9791042903971188,
+      "dynamic_nmse": 0.05031150669865338,
+      "temporal_nmse": 0.0541540467651479,
+      "multiscale_nmse": 0.0375161093002631
+    },
+    "copy_current": {
+      "nmse": 0.4174693222692675,
+      "mse": 5.9906024191508065,
+      "corridor_nmse": 0.44281815595806345,
+      "cosine": 0.8277397060293122,
+      "dynamic_nmse": 0.5234046894947082,
+      "temporal_nmse": 0.18433325278941384,
+      "multiscale_nmse": 0.39848791585625026
+    },
+    "by_query": [
+      {
+        "time_seconds": 0.5,
+        "count": 1906,
+        "nmse": 0.021870022574705945,
+        "mse": 0.3435309263154403,
+        "corridor_nmse": 0.011895133311678739,
+        "cosine": 0.9885118457978319,
+        "dynamic_nmse": 0.02909870909334303,
+        "temporal_nmse": 0.021545846329554613,
+        "multiscale_nmse": 0.019230041284584914
+      },
+      {
+        "time_seconds": 1.0,
+        "count": 1906,
+        "nmse": 0.028516969829364087,
+        "mse": 0.43751495403549384,
+        "corridor_nmse": 0.016443801148723007,
+        "cosine": 0.9851602933839636,
+        "dynamic_nmse": 0.036775364209228396,
+        "temporal_nmse": 0.03546460685326612,
+        "multiscale_nmse": 0.025350854824965817
+      },
+      {
+        "time_seconds": 1.5,
+        "count": 1906,
+        "nmse": 0.034091517046575974,
+        "mse": 0.5113759381239227,
+        "corridor_nmse": 0.022044990669579947,
+        "cosine": 0.9825095834849639,
+        "dynamic_nmse": 0.043032250845684364,
+        "temporal_nmse": 0.042721703665333205,
+        "multiscale_nmse": 0.030474609954224983
+      },
+      {
+        "time_seconds": 2.0,
+        "count": 1906,
+        "nmse": 0.03966424846441455,
+        "mse": 0.5844428115548783,
+        "corridor_nmse": 0.028966030510764254,
+        "cosine": 0.9800236721729306,
+        "dynamic_nmse": 0.04912817410670039,
+        "temporal_nmse": 0.05005601549218812,
+        "multiscale_nmse": 0.035614288304536626
+      },
+      {
+        "time_seconds": 2.5,
+        "count": 1906,
+        "nmse": 0.04560156466661936,
+        "mse": 0.6633185136082103,
+        "corridor_nmse": 0.03677136384285099,
+        "cosine": 0.9774729461259631,
+        "dynamic_nmse": 0.05556322752064678,
+        "temporal_nmse": 0.05780994772083094,
+        "multiscale_nmse": 0.040911845192622254
+      },
+      {
+        "time_seconds": 3.0,
+        "count": 1864,
+        "nmse": 0.05074107762857824,
+        "mse": 0.7443305884064235,
+        "corridor_nmse": 0.0427134748502373,
+        "cosine": 0.975254339273907,
+        "dynamic_nmse": 0.060786776411269144,
+        "temporal_nmse": 0.06423388314720999,
+        "multiscale_nmse": 0.04531505728002324
+      }
+    ],
+    "per_route": {
+      "Accident/Town13_Rep0_1627_0_route0_11_08_06_10_32": {
+        "nmse": 0.05427922906265373,
+        "mse": 0.8163528018764087,
+        "corridor_nmse": 0.041781052139898134,
+        "cosine": 0.9723302988778979,
+        "dynamic_nmse": 0.06239119658601426,
+        "temporal_nmse": 0.0669254176540389,
+        "multiscale_nmse": 0.048323987699335526
+      },
+      "AccidentTwoWays/Town13_Rep0_1554_0_route0_11_08_06_34_43": {
+        "nmse": 0.021649072206734375,
+        "mse": 0.3376738456802235,
+        "corridor_nmse": 0.0127495271234592,
+        "cosine": 0.9889641139242384,
+        "dynamic_nmse": 0.026446199783175764,
+        "temporal_nmse": 0.026331965976472322,
+        "multiscale_nmse": 0.018970707351238365
+      },
+      "BlockedIntersection/Town12_Rep0_1858_0_route0_11_08_21_47_49": {
+        "nmse": 0.03762892585969074,
+        "mse": 0.6246315996874782,
+        "corridor_nmse": 0.02713077184664286,
+        "cosine": 0.980341958941198,
+        "dynamic_nmse": 0.051660145915971664,
+        "temporal_nmse": 0.03136516869405978,
+        "multiscale_nmse": 0.033326443996937835
+      },
+      "ConstructionObstacle/Town12_Rep0_1649_1_route0_11_08_21_27_00": {
+        "nmse": 0.04105068362938861,
+        "mse": 0.7016103569079528,
+        "corridor_nmse": 0.02448551800228994,
+        "cosine": 0.9796294811548609,
+        "dynamic_nmse": 0.05409876008122933,
+        "temporal_nmse": 0.055103173860433424,
+        "multiscale_nmse": 0.036387929202508974
+      },
+      "ConstructionObstacleTwoWays/Town12_Rep0_2034_0_route0_11_08_22_13_08": {
+        "nmse": 0.021859786014608813,
+        "mse": 0.3075332162958203,
+        "corridor_nmse": 0.013108292674278895,
+        "cosine": 0.9887972481323011,
+        "dynamic_nmse": 0.025464775207254927,
+        "temporal_nmse": 0.026716654911411532,
+        "multiscale_nmse": 0.019504664300686935
+      },
+      "ControlLoss/Town13_Rep0_1709_0_route0_11_08_00_28_38": {
+        "nmse": 0.03144094181576899,
+        "mse": 0.5853286790130497,
+        "corridor_nmse": 0.017171091870614764,
+        "cosine": 0.9838803703324838,
+        "dynamic_nmse": 0.04793595243092186,
+        "temporal_nmse": 0.03761550312424732,
+        "multiscale_nmse": 0.028161090948024613
+      },
+      "ControlLoss/Town13_Rep0_1773_0_route0_11_08_21_34_29": {
+        "nmse": 0.02667606096867027,
+        "mse": 0.44964311321107847,
+        "corridor_nmse": 0.017404973830913526,
+        "cosine": 0.9855946547955087,
+        "dynamic_nmse": 0.033774126939030376,
+        "temporal_nmse": 0.02667184222823466,
+        "multiscale_nmse": 0.023839724175456285
+      },
+      "CrossingBicycleFlow/Town12_Rep0_2699_2_route0_11_08_08_24_18": {
+        "nmse": 0.054631504197523266,
+        "mse": 0.8054494669562892,
+        "corridor_nmse": 0.035442527140523386,
+        "cosine": 0.9735569174875294,
+        "dynamic_nmse": 0.07263970906078292,
+        "temporal_nmse": 0.07656337614906461,
+        "multiscale_nmse": 0.049627358273586684
+      },
+      "CrossingBicycleFlow/Town12_Rep0_3978_0_route0_11_09_03_52_55": {
+        "nmse": 0.06268351425400427,
+        "mse": 0.9408046872469417,
+        "corridor_nmse": 0.05438463911087366,
+        "cosine": 0.9702785752321544,
+        "dynamic_nmse": 0.06401240634486863,
+        "temporal_nmse": 0.08452925272285938,
+        "multiscale_nmse": 0.0578629705777163
+      },
+      "DynamicObjectCrossing/Town12_Rep0_3201_0_route0_11_08_02_22_17": {
+        "nmse": 0.02326539634673634,
+        "mse": 0.3878615421152075,
+        "corridor_nmse": 0.01790593859135183,
+        "cosine": 0.9878021496714968,
+        "dynamic_nmse": 0.03075783750511116,
+        "temporal_nmse": 0.022531489900435613,
+        "multiscale_nmse": 0.020731383090507965
+      },
+      "EnterActorFlow/Town12_Rep0_4378_3_route0_11_09_04_29_46": {
+        "nmse": 0.07141340309754014,
+        "mse": 0.8926760668555893,
+        "corridor_nmse": 0.04698094166039179,
+        "cosine": 0.9680843591690064,
+        "dynamic_nmse": 0.08838358414359393,
+        "temporal_nmse": 0.10920903764975569,
+        "multiscale_nmse": 0.061690919737642014
+      },
+      "EnterActorFlowV2/Town12_Rep0_975_14_route0_11_09_00_14_40": {
+        "nmse": 0.04958448771827129,
+        "mse": 0.5750842531004714,
+        "corridor_nmse": 0.04505168875362466,
+        "cosine": 0.9753188524395228,
+        "dynamic_nmse": 0.05672705928898519,
+        "temporal_nmse": 0.06336080987627307,
+        "multiscale_nmse": 0.04467169489426953
+      },
+      "HardBreakRoute/Town13_Rep0_1056_0_route0_11_08_05_42_58": {
+        "nmse": 0.01720012116295142,
+        "mse": 0.3116446732263255,
+        "corridor_nmse": 0.010825952970847768,
+        "cosine": 0.9906356281381313,
+        "dynamic_nmse": 0.022718940274714213,
+        "temporal_nmse": 0.017478046887667804,
+        "multiscale_nmse": 0.015281181587512054
+      },
+      "HazardAtSideLane/Town12_Rep0_3988_1_route0_11_09_12_34_57": {
+        "nmse": 0.04847999037045872,
+        "mse": 0.8138374531585157,
+        "corridor_nmse": 0.030908357001008524,
+        "cosine": 0.9759307950735092,
+        "dynamic_nmse": 0.05691248769025234,
+        "temporal_nmse": 0.0682439262745902,
+        "multiscale_nmse": 0.04303423885016166
+      },
+      "HazardAtSideLaneTwoWays/Town13_Rep0_1302_2_route0_11_09_08_32_55": {
+        "nmse": 0.02731706448880735,
+        "mse": 0.3969140477798959,
+        "corridor_nmse": 0.018106853437950456,
+        "cosine": 0.9864648811278804,
+        "dynamic_nmse": 0.030498244041096297,
+        "temporal_nmse": 0.03694698343464043,
+        "multiscale_nmse": 0.02419497932417579
+      },
+      "HighwayCutIn/Town13_Rep0_1283_16_route0_11_08_15_47_06": {
+        "nmse": 0.03251371597800629,
+        "mse": 0.4126430203404391,
+        "corridor_nmse": 0.02637686734687481,
+        "cosine": 0.9837158283500961,
+        "dynamic_nmse": 0.03548515993099886,
+        "temporal_nmse": 0.042638775682302586,
+        "multiscale_nmse": 0.02827449074353684
+      },
+      "HighwayExit/Town13_Rep0_1396_9_route0_11_09_12_13_02": {
+        "nmse": 0.08766210947514458,
+        "mse": 1.2962514880825489,
+        "corridor_nmse": 0.07891777305242917,
+        "cosine": 0.9567349146978527,
+        "dynamic_nmse": 0.10530450731041094,
+        "temporal_nmse": 0.12454377715567165,
+        "multiscale_nmse": 0.07874638058573884
+      },
+      "InterurbanActorFlow/Town13_Rep0_1294_5_route0_11_09_08_31_19": {
+        "nmse": 0.03926147683523595,
+        "mse": 0.5265767419976848,
+        "corridor_nmse": 0.029951838224882347,
+        "cosine": 0.9807341602586565,
+        "dynamic_nmse": 0.04465253436050954,
+        "temporal_nmse": 0.05976300722076779,
+        "multiscale_nmse": 0.034761730387496456
+      },
+      "InterurbanAdvancedActorFlow/Town12_Rep0_3457_4_route0_11_08_12_02_56": {
+        "nmse": 0.05131488474300848,
+        "mse": 0.6442394044536811,
+        "corridor_nmse": 0.03179004479450388,
+        "cosine": 0.9749652361258483,
+        "dynamic_nmse": 0.06230407441631914,
+        "temporal_nmse": 0.08224579082348217,
+        "multiscale_nmse": 0.04662082741896694
+      },
+      "InvadingTurn/Town12_Rep0_47_1_route0_11_08_01_30_32": {
+        "nmse": 0.04169663587980653,
+        "mse": 0.6380767793825236,
+        "corridor_nmse": 0.026255909345983975,
+        "cosine": 0.9785701469067605,
+        "dynamic_nmse": 0.04789180522133667,
+        "temporal_nmse": 0.04867705550189981,
+        "multiscale_nmse": 0.037400925837417116
+      },
+      "MergerIntoSlowTraffic/Town12_Rep0_2787_1_route0_11_09_07_41_57": {
+        "nmse": 0.07836891979444771,
+        "mse": 0.9474598055705427,
+        "corridor_nmse": 0.05862542802118696,
+        "cosine": 0.9625343320767085,
+        "dynamic_nmse": 0.09107102749714008,
+        "temporal_nmse": 0.10365419686849539,
+        "multiscale_nmse": 0.066981785260917
+      },
+      "MergerIntoSlowTrafficV2/Town12_Rep0_968_29_route0_11_09_06_05_31": {
+        "nmse": 0.0499087468366183,
+        "mse": 0.591166198883383,
+        "corridor_nmse": 0.03498755613330841,
+        "cosine": 0.9757683753257707,
+        "dynamic_nmse": 0.05805209448694119,
+        "temporal_nmse": 0.06741502883156672,
+        "multiscale_nmse": 0.04284960422997496
+      },
+      "MergerIntoSlowTrafficV2/Town13_Rep0_1398_8_route0_11_08_17_44_55": {
+        "nmse": 0.057722792759829875,
+        "mse": 0.8083278374636876,
+        "corridor_nmse": 0.04673650452191485,
+        "cosine": 0.9714235230988147,
+        "dynamic_nmse": 0.06615169769079954,
+        "temporal_nmse": 0.06793864955821263,
+        "multiscale_nmse": 0.052293744358215835
+      },
+      "NonSignalizedJunctionLeftTurn/Town13_Rep0_1578_0_route0_11_09_07_33_43": {
+        "nmse": 0.03319251071661711,
+        "mse": 0.47771901734497235,
+        "corridor_nmse": 0.022356348318061322,
+        "cosine": 0.9833763272002125,
+        "dynamic_nmse": 0.03916620565038444,
+        "temporal_nmse": 0.0399941999492222,
+        "multiscale_nmse": 0.029685233240488218
+      },
+      "NonSignalizedJunctionRightTurn/Town12_Rep0_1995_1_route0_11_09_02_00_40": {
+        "nmse": 0.05356335968133949,
+        "mse": 0.7003704476214592,
+        "corridor_nmse": 0.03648420948062151,
+        "cosine": 0.973606465827851,
+        "dynamic_nmse": 0.06282449062795392,
+        "temporal_nmse": 0.06785674583876417,
+        "multiscale_nmse": 0.04839443583928403
+      },
+      "NonSignalizedJunctionRightTurn/Town13_Rep0_1189_0_route0_11_08_21_09_39": {
+        "nmse": 0.0352976061355245,
+        "mse": 0.5463147351207833,
+        "corridor_nmse": 0.02948089234996587,
+        "cosine": 0.9807273629638883,
+        "dynamic_nmse": 0.04325481704694944,
+        "temporal_nmse": 0.039443283967557356,
+        "multiscale_nmse": 0.03160100520472043
+      },
+      "OppositeVehicleRunningRedLight/Town13_Rep0_1087_2_route0_11_08_16_43_27": {
+        "nmse": 0.04173330206928465,
+        "mse": 0.6176905433336893,
+        "corridor_nmse": 0.030671565424806126,
+        "cosine": 0.9798064778248468,
+        "dynamic_nmse": 0.044965450011659414,
+        "temporal_nmse": 0.056093083772187434,
+        "multiscale_nmse": 0.03805923522061978
+      },
+      "OppositeVehicleTakingPriority/Town13_Rep0_1418_2_route0_11_08_04_04_05": {
+        "nmse": 0.033022928481491715,
+        "mse": 0.44009237822431785,
+        "corridor_nmse": 0.021245105833842013,
+        "cosine": 0.983995387951533,
+        "dynamic_nmse": 0.037435189420834944,
+        "temporal_nmse": 0.03997519211127208,
+        "multiscale_nmse": 0.030028466421824235
+      },
+      "OppositeVehicleTakingPriority/Town13_Rep0_1609_0_route0_11_08_19_08_54": {
+        "nmse": 0.0323897760349493,
+        "mse": 0.44955246876447624,
+        "corridor_nmse": 0.02201951193050123,
+        "cosine": 0.9835628374264791,
+        "dynamic_nmse": 0.0358831039749277,
+        "temporal_nmse": 0.04117081223581082,
+        "multiscale_nmse": 0.029461014275558486
+      },
+      "ParkedObstacle/Town13_Rep0_17_7_route0_11_08_05_57_14": {
+        "nmse": 0.07855279421589027,
+        "mse": 1.2347627161070704,
+        "corridor_nmse": 0.06301670458439428,
+        "cosine": 0.9641932149728141,
+        "dynamic_nmse": 0.08380333935686697,
+        "temporal_nmse": 0.11749493763394032,
+        "multiscale_nmse": 0.07243023457704112
+      },
+      "ParkedObstacleTwoWays/Town12_Rep0_4113_0_route0_11_08_07_49_32": {
+        "nmse": 0.0350272503559186,
+        "mse": 0.48763284561308945,
+        "corridor_nmse": 0.02362253698002961,
+        "cosine": 0.9827441338336829,
+        "dynamic_nmse": 0.04284713654825934,
+        "temporal_nmse": 0.0471843342071004,
+        "multiscale_nmse": 0.0313765436476755
+      },
+      "ParkingCrossingPedestrian/Town12_Rep0_254_0_route0_11_08_06_36_01": {
+        "nmse": 0.011212250862669495,
+        "mse": 0.19732049232061724,
+        "corridor_nmse": 0.009622208608659573,
+        "cosine": 0.9935567358702315,
+        "dynamic_nmse": 0.014718097298093957,
+        "temporal_nmse": 0.009075881295343428,
+        "multiscale_nmse": 0.01009823857471981
+      },
+      "ParkingCrossingPedestrian/Town12_Rep0_3242_0_route0_11_09_06_36_18": {
+        "nmse": 0.011584141591600584,
+        "mse": 0.20213369359180594,
+        "corridor_nmse": 0.010223322859536367,
+        "cosine": 0.99303815981798,
+        "dynamic_nmse": 0.016189465905221082,
+        "temporal_nmse": 0.0100275209546804,
+        "multiscale_nmse": 0.010388632333457569
+      },
+      "ParkingCutIn/Town13_Rep0_1013_1_route0_11_08_02_19_17": {
+        "nmse": 0.028174195340589472,
+        "mse": 0.45861368417217024,
+        "corridor_nmse": 0.022292552499525376,
+        "cosine": 0.9842318960449152,
+        "dynamic_nmse": 0.032771267789301645,
+        "temporal_nmse": 0.03601898353448824,
+        "multiscale_nmse": 0.025343746339019976
+      },
+      "ParkingExit/Town13_Rep0_1669_8_route0_11_08_13_10_05": {
+        "nmse": 0.03522439139402088,
+        "mse": 0.6277957050239338,
+        "corridor_nmse": 0.024788527480125715,
+        "cosine": 0.9817881964001001,
+        "dynamic_nmse": 0.04973136496675364,
+        "temporal_nmse": 0.04247362872439565,
+        "multiscale_nmse": 0.031251256244585794
+      },
+      "PedestrianCrossing/Town13_Rep0_1053_0_route0_11_09_12_42_36": {
+        "nmse": 0.07002672356177579,
+        "mse": 0.9976906020913207,
+        "corridor_nmse": 0.05286668753659908,
+        "cosine": 0.9648261478072718,
+        "dynamic_nmse": 0.07888839591555952,
+        "temporal_nmse": 0.10295660168814816,
+        "multiscale_nmse": 0.06483243940103996
+      },
+      "PriorityAtJunction/Town13_Rep0_1022_0_route0_11_09_01_09_02": {
+        "nmse": 0.0289903638449808,
+        "mse": 0.48597967882951104,
+        "corridor_nmse": 0.01695796497166157,
+        "cosine": 0.9847160899639128,
+        "dynamic_nmse": 0.030350292623043056,
+        "temporal_nmse": 0.03463184013341864,
+        "multiscale_nmse": 0.02597086101149519
+      },
+      "SignalizedJunctionLeftTurn/Town13_Rep0_45_2_route0_11_08_17_03_32": {
+        "nmse": 0.040581753626465794,
+        "mse": 0.6360551549990973,
+        "corridor_nmse": 0.03741095099831,
+        "cosine": 0.9784367656707764,
+        "dynamic_nmse": 0.052107318472117185,
+        "temporal_nmse": 0.046576518593356014,
+        "multiscale_nmse": 0.03641417570412159
+      },
+      "SignalizedJunctionRightTurn/Town12_Rep0_524_1_route0_11_08_12_10_57": {
+        "nmse": 0.04569086694920605,
+        "mse": 0.7131509806847933,
+        "corridor_nmse": 0.03101254562550987,
+        "cosine": 0.9759846785754868,
+        "dynamic_nmse": 0.051354410775908924,
+        "temporal_nmse": 0.06646984015506775,
+        "multiscale_nmse": 0.040847240001753424
+      },
+      "StaticCutIn/Town13_Rep0_1624_1_route0_11_09_02_03_56": {
+        "nmse": 0.05091791302525526,
+        "mse": 0.6183515845752153,
+        "corridor_nmse": 0.040714339152120985,
+        "cosine": 0.9754184298828001,
+        "dynamic_nmse": 0.06458677583033107,
+        "temporal_nmse": 0.06296754974994015,
+        "multiscale_nmse": 0.04649954630937325
+      },
+      "VehicleOpensDoorTwoWays/Town13_Rep0_1052_1_route0_11_08_21_19_49": {
+        "nmse": 0.04238206010622283,
+        "mse": 0.5916794116298358,
+        "corridor_nmse": 0.032972599357987444,
+        "cosine": 0.9789500983556113,
+        "dynamic_nmse": 0.046635731526960926,
+        "temporal_nmse": 0.0619176268360267,
+        "multiscale_nmse": 0.0380559958020846
+      },
+      "VehicleTurningRoute/Town12_Rep0_2298_0_route0_11_08_00_08_33": {
+        "nmse": 0.023758886873093323,
+        "mse": 0.4773153726378194,
+        "corridor_nmse": 0.0108661355930119,
+        "cosine": 0.9874071045486249,
+        "dynamic_nmse": 0.044553919753525406,
+        "temporal_nmse": 0.022123166538309865,
+        "multiscale_nmse": 0.02117832691804056
+      },
+      "VehicleTurningRoutePedestrian/Town12_Rep0_538_1_route0_11_08_11_23_27": {
+        "nmse": 0.024381782001841608,
+        "mse": 0.44700156790928713,
+        "corridor_nmse": 0.01864222419807144,
+        "cosine": 0.9868084514141082,
+        "dynamic_nmse": 0.03861019360211988,
+        "temporal_nmse": 0.021951703776139767,
+        "multiscale_nmse": 0.02176477617635909
+      },
+      "YieldToEmergencyVehicle/Town12_Rep0_4483_0_route0_11_08_07_19_24": {
+        "nmse": 0.060452648729347344,
+        "mse": 0.7221367932376805,
+        "corridor_nmse": 0.04553350790550834,
+        "cosine": 0.9713570137818653,
+        "dynamic_nmse": 0.06769500143651724,
+        "temporal_nmse": 0.06990567498475488,
+        "multiscale_nmse": 0.05348864313628939
+      }
+    }
+  },
+  "fetched_utc": "2026-11-12T09:40:31.050366+00:00",
+  "method": "irwm_bev_t_large",
+  "architecture": "multiscale_recurrent_192_v1"
+}

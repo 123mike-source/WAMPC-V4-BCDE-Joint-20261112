@@ -1,0 +1,7 @@
+{
+  "epoch": 24,
+  "next_batch": 0,
+  "updates": 166944,
+  "best_nmse": 0.04190379475213616,
+  "validation_pending": false
+}

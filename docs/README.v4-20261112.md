@@ -132,7 +132,7 @@ ckps/full_diffusion/backbone/all_towns_seed1/model_0030_1.pth
 ckps/full_diffusion/backbone/all_towns_seed1/config.json
 ```
 
-本仓库此次上传范围为代码、配置、日志和索引。预训练权重及本次训练产出的 `best.pt`/`latest.pt` 保留在原服务器；精确路径和身份见权重依赖记录。V4 推理需要基础 BCDE 权重与 V4 检查点保存的 `world_tuned_state` 一起恢复。
+BCDE 世界模型的 `best.pt` 和最终轮 `latest.pt` 已通过 Git LFS 放在 [`ckpt/irwm_bev_t_large/`](../ckpt/irwm_bev_t_large/)；克隆后先运行 `git lfs pull`，再按该目录的说明将 `best.pt` 复制到上述 `ckps/` 路径。其他预训练权重仍按权重依赖记录准备。V4 推理需要基础 BCDE 权重与 V4 检查点保存的 `world_tuned_state` 一起恢复。
 
 ### 2. 还原固定源索引并配置当前路径
 
