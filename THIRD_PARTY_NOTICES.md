@@ -5,6 +5,7 @@
 | 来源 | 固定身份 / 使用方式 | 许可证记录 |
 |---|---|---|
 | [neasonrum/WAMPC](https://github.com/neasonrum/WAMPC) | `d98a90b16619d585d6db400d3cfd924c35b225b6` 基础上的实际工作区源码 | 导出时根目录未发现 LICENSE；[原 README](docs/README.upstream.md) 保留 |
+| [neasonrum/WMMPC](https://github.com/neasonrum/WMMPC) | `0c8a65142739515d2c9796d7358dd35b67d150da`；参考 V5 的冻结 V3 与零门控未来读取，本版修改为 4Hz 连续训练和每锚点新鲜世界 | 保留来源说明；固定文件身份见 [V5 来源记录](provenance/v5_training_source.json) |
 | [CVCI2_Res_V11_PlanA](https://github.com/123mike-source/CVCI2_Res_V11_PlanA) | `be6b7842adb8f28d2f05068d8f28206e2b3581ac`；参考世界模型部分解冻、递归滚动和采样训练策略，按 BCDE 结构适配 | 未整体复制其仓库；引用文件见正式配置 `reference` 字段 |
 | [BridgeDrive](https://github.com/ShuLiu-ETHZ/BridgeDrive) | `85aa089a321a7b7cbc42aa58b3be508eb223d9e2`；原样保留 `blocks.py` 与 `conditional_unet1d.py`，通过 `WMMPC_BRIDGE_MODULES` 加载 | [MIT](vendor/bridgedrive/LICENSE)，文件保存在 `vendor/bridgedrive/modules/` |
 | [CARLA Garage](https://github.com/autonomousvision/carla_garage) | git submodule，`48e6a6dbcb133220333bd65e242fbc2b492bb15b`；TF++ 感知与数据预处理 | [原许可证副本](docs/licenses/carla_garage.LICENSE)，子模块保留原许可 |

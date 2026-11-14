@@ -1,0 +1,22 @@
+test_anchor_indices_keep_last_two_eligible_anchors (test_full_diffusionv5_train4hz.ContractAndDataTests) ... ok
+test_cache_identity_is_required (test_full_diffusionv5_train4hz.ContractAndDataTests) ... ok
+test_context_reuse_matches_raw_frame_numbers (test_full_diffusionv5_train4hz.ContractAndDataTests) ... ok
+test_contract_rejects_old_triplets_and_inconsistent_sampling (test_full_diffusionv5_train4hz.ContractAndDataTests) ... ok
+test_missing_features_do_not_remove_anchors (test_full_diffusionv5_train4hz.ContractAndDataTests) ... ok
+test_single_route_chain_includes_both_parities (test_full_diffusionv5_train4hz.ContractAndDataTests) ... ok
+test_validation_uses_one_fresh_rollout_per_anchor_and_same_noise (test_full_diffusionv5_train4hz.ContractAndDataTests) ... ok
+test_ade_ignores_masked_future_targets (test_full_diffusionv5_train4hz.PlannerTests) ... ok
+test_bad_prior_age_and_fabricated_tail_are_rejected (test_full_diffusionv5_train4hz.PlannerTests) ... ok
+test_cold_start_has_zero_loss_but_produces_a_detached_bootstrap_plan (test_full_diffusionv5_train4hz.PlannerTests) ... ok
+test_fresh_future_times_and_gate_zero_match_v3_exactly (test_full_diffusionv5_train4hz.PlannerTests) ... ok
+test_train_backward_and_25_step_prior_keep_base_and_world_frozen (test_full_diffusionv5_train4hz.PlannerTests) ... ok
+test_world_and_sampler_inputs_do_not_depend_on_future_labels (test_full_diffusionv5_train4hz.PlannerTests) ... ok
+test_ddp_route_pools_are_disjoint_and_continue_at_4hz (test_full_diffusionv5_train4hz.RollingTests) ... ok
+test_gaps_rewinds_and_wrong_cadence_are_cold_starts (test_full_diffusionv5_train4hz.RollingTests) ... ok
+test_quarter_second_interpolation_rebases_to_actual_rotated_pose (test_full_diffusionv5_train4hz.RollingTests) ... ok
+test_resume_and_batch_reordering_preserve_route_state (test_full_diffusionv5_train4hz.RollingTests) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 8.919s
+
+OK

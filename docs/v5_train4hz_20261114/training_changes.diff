@@ -1,0 +1,736 @@
+--- reference/data.py
++++ train4hz/data.py
+@@ -1,4 +1,4 @@
+-"""Three-frame V5 items (t, t+0.25, t+0.5) and their 2Hz chain identities."""
++"""One current anchor per item, with BEV history at t-0.5, t-0.25 and t."""
+ from functools import lru_cache
+ import json
+ from pathlib import Path
+@@ -6,6 +6,8 @@
+ import numpy as np
+ import torch
+ from torch.utils.data import Dataset
++
++from .contract import validate_manifest
+ 
+ FRAME_KEYS = ('path', 'spatial_mask', 'temporal_delta', 'temporal_mask', 'future_positions',
+               'behavior_targets', 'behavior_mask', 'speed', 'command', 'target_point',
+@@ -16,34 +18,37 @@
+     def __init__(self, directory, split='train'):
+         self.directory = Path(directory)
+         self.manifest = json.loads((self.directory / 'manifest.json').read_text())
++        validate_manifest(self.manifest)
+         self.routes = json.loads((self.directory / 'routes.json').read_text())
+         self.samples = np.load(self.directory / f'{split}.npy')
+-        context = json.loads((self.directory / 'context/complete.json').read_text())
+-        if context['dataset_sha256'] != self.manifest['identity']:
+-            raise ValueError('Context cache belongs to a different V5 index')
++        if self.samples.ndim != 2 or self.samples.shape[1] != 3:
++            raise ValueError('Expected (route, label slot, current frame) rows')
++        for marker in ('features/complete.json', 'context/complete.json'):
++            state = json.loads((self.directory / marker).read_text())
++            if state['dataset_sha256'] != self.manifest['identity']:
++                raise ValueError(f'Cache belongs to a different 4Hz index: {marker}')
+         self.teacher_root = Path(self.manifest['teacher_cache'])
+ 
+     def __len__(self):
+         return len(self.samples)
+ 
+     def chains(self):
+-        """(chain key, frame) per item; one chain = one route at one frame parity (2Hz)."""
+-        keys = self.samples[:, 0].astype(np.int64) * 2 + self.samples[:, 2] % 2
+-        return np.stack((keys, self.samples[:, 2].astype(np.int64)), 1)
++        """One chronological chain per route; both frame parities belong to it."""
++        return self.samples[:, [0, 2]].astype(np.int64)
+ 
+-    @lru_cache(maxsize=256)
++    @lru_cache(maxsize=64)
+     def metadata(self, route):
+         with np.load(self.directory / 'labels' / f'{route:05}.npz') as f:
+             return {k: f[k].copy() for k in f.files}
+ 
+-    @lru_cache(maxsize=256)
++    @lru_cache(maxsize=64)
+     def context(self, route):
+         state = torch.load(self.directory / 'context' / f'{route:05}.pt', map_location='cpu', weights_only=True)
+         if state['dataset_sha256'] != self.manifest['identity']:
+-            raise ValueError('Route context belongs to a different V5 index')
++            raise ValueError('Route context belongs to a different 4Hz index')
+         return state
+ 
+-    @lru_cache(maxsize=512)
++    @lru_cache(maxsize=96)
+     def feature(self, route, frame):
+         path = self.teacher_root / self.routes[route] / f'{frame:04}.npy'
+         bits = np.load(path, allow_pickle=False)
+@@ -54,16 +59,12 @@
+     def __getitem__(self, index):
+         route, slot, frame = map(int, self.samples[index])
+         m = self.metadata(route)
+-        slots = [slot, slot + 1, slot + 2]
+-        if [int(m['frame'][s]) for s in slots] != [frame, frame + 1, frame + 2]:
+-            raise ValueError(f'Item {index} is not three consecutive 4Hz frames')
+-        result = {k: torch.from_numpy(np.stack([m[k][s] for s in slots])) for k in FRAME_KEYS}
+-        features = {f: self.feature(route, f) for f in range(frame - 2, frame + 3)}
+-        result['raw_bev'] = torch.stack([torch.stack([features[f] for f in range(frame + j - 2, frame + j + 1)])
+-                                         for j in range(3)])
++        if int(m['frame'][slot]) != frame or list(m['history_frames'][slot]) != [frame - 2, frame - 1, frame]:
++            raise ValueError(f'Item {index} has a mismatched current frame or observation history')
++        result = {k: torch.from_numpy(np.asarray(m[k][slot]).copy()) for k in FRAME_KEYS}
++        result['raw_bev'] = torch.stack([self.feature(route, f) for f in (frame - 2, frame - 1, frame)])
+         context = self.context(route)
+-        result['memory'], result['ego'] = context['memory'][slots], context['ego'][slots]
+-        result.update(chain_id=f'{self.routes[route]}#{frame % 2}', timestamp=frame * .25,
++        result['memory'], result['ego'] = context['memory'][slot], context['ego'][slot]
++        result.update(chain_id=self.routes[route], timestamp=frame * .25,
+                       route_id=route, sample_index=index)
+         return result
+-
+--- reference/prepare.py
++++ train4hz/prepare.py
+@@ -1,10 +1,7 @@
+-"""Prepare the 4Hz V5 index.
+-
+-Every recorded 0.25s frame with two contiguous history frames and a complete 3s
+-future is an anchor. A training item is three consecutive anchors (t, t+0.25,
+-t+0.5): the world refreshes at t and its cache is read at ages 0, 0.25 and 0.5s.
+-Items of one route split into two 2Hz chains by frame parity, so both phases of
+-the 4Hz recording are used without ever creating a 0.25s-old previous plan.
++"""Prepare single-anchor 4Hz labels, missing teacher features and current contexts.
++
++All eligible anchors remain in the index, including anchors whose teacher
++features still need filling. Missing caches must be completed before training.
+ """
+ import argparse
+ from collections import defaultdict
+@@ -23,6 +20,7 @@
+ 
+ from method.full_diffusionv4.bootstrap import ROOT
+ from method.full_diffusionv4.world import sha256
++from .contract import CONTRACT, INDEX_FORMAT, validate_config, validate_manifest
+ 
+ HISTORY, FUTURE = 2, 12
+ PROCESSOR = None
+@@ -84,15 +82,11 @@
+                   'history_mask': np.ones(3, bool)}
+         for key, value in values.items():
+             records[key].append(value)
+-    slot = {int(frames[a]): s for s, a in enumerate(anchors)}
+     items, missing = [], 0
+     for s, a in enumerate(anchors):
+         f = int(frames[a])
+-        if f + 1 in slot and f + 2 in slot:
+-            if all(x in existing for x in range(f - 2, f + 3)):
+-                items.append((rid, s, f))
+-            else:
+-                missing += 1
++        items.append((rid, s, f))
++        missing += int(not all(x in existing for x in range(f - 2, f + 1)))
+     output = Path(directory) / 'labels' / f'{rid:05}.npz'
+     if records:
+         arrays = {k: np.asarray(v) for k, v in records.items()}
+@@ -108,6 +102,9 @@
+ def labels(args):
+     require_allocation()
+     config = json.loads(args.config.read_text())
++    validate_config(config)
++    if sha256(ROOT / config['v3']['checkpoint']) != config['v3']['sha256']:
++        raise ValueError('V3 checkpoint checksum differs')
+     v3 = torch.load(ROOT / config['v3']['checkpoint'], map_location='cpu', weights_only=False)
+     if v3['config']['labels'] != config['labels']:
+         raise ValueError('V5 labels must be exactly the frozen V3 labels')
+@@ -115,6 +112,8 @@
+     source = (ROOT / config['source_index']).resolve()
+     output = (ROOT / config['index_directory']).resolve()
+     original = json.loads((source / 'manifest.json').read_text())
++    if original.get('frame_dt_s') != .25:
++        raise ValueError('Source observations must be recorded at 4Hz')
+     if output.exists():
+         raise FileExistsError(f'Use a new V5 index directory: {output}')
+     (output / 'labels').mkdir(parents=True)
+@@ -149,14 +148,15 @@
+         np.save(output / f'{split}.npy', np.concatenate(values).astype(np.int32))
+     (output / 'routes.json').write_text(json.dumps(routes))
+     counts = {split: len(np.load(output / f'{split}.npy')) for split in items}
+-    manifest = {'method': 'full_diffusionv5_index_v1', 'data_root': config['data_root'],
++    manifest = {'method': INDEX_FORMAT, 'training_contract': CONTRACT, 'data_root': config['data_root'],
+                 'backbone_directory': str(ROOT / config['backbone_directory']), 'label_config': config['labels'],
+                 'teacher_cache': str(teacher_root), 'teacher_sha256': original['teacher_sha256'],
+                 'teacher_config_sha256': original['teacher_config_sha256'],
+                 'source_index': str(source), 'source_sha256': {n: sha256(source / n) for n in
+                                                             ('manifest.json', 'routes.json', 'train.npy', 'val.npy')},
+-                'cadence': {'recorded_hz': 4, 'anchor_stride_frames': 1, 'chain_stride_frames': 2,
+-                            'item_frames': [0, 1, 2], 'cache_ages_seconds': [0.0, 0.25, 0.5]},
++                'cadence': {'recorded_hz': 4, 'anchor_stride_frames': 1, 'chain_stride_frames': 1,
++                            'item_frames': [0], 'history_frame_offsets': [-2, -1, 0],
++                            'cache_ages_seconds': [0.0], 'prior_age_seconds': .25},
+                 'anchors': anchors, 'items': counts, 'items_missing_teacher_features': missing,
+                 'routes': {split: sum(s == split for s in parts.values()) for split in ('train', 'val')},
+                 'labels_sha256': identities,
+@@ -184,7 +184,138 @@
+         rid, slot, frame = self.tasks[index]
+         current = self.loader.load_frame(self.root / self.loader.routes[rid], frame, random.Random(901))
+         return {k: current[k] for k in ('rgb', 'lidar', 'speed', 'command', 'target_point')} | {
+-            'route_id': rid, 'slot': slot}
++            'route_id': rid, 'slot': slot, 'frame': frame}
++
++
++def verify_teacher(manifest):
++    backbone = Path(manifest['backbone_directory'])
++    if (sha256(backbone / 'model_0030_1.pth') != manifest['teacher_sha256']
++            or sha256(backbone / 'config.json') != manifest['teacher_config_sha256']):
++        raise ValueError('Frozen perception weights/config differ from the existing teacher cache')
++
++
++def context_source(config, manifest):
++    """Only reuse contexts with the same teacher, route numbering and index identity."""
++    name = config.get('context_source_index')
++    if not name:
++        return None
++    source = ROOT / name
++    old = json.loads((source / 'manifest.json').read_text())
++    marker = json.loads((source / 'context/complete.json').read_text())
++    if (old['teacher_sha256'] != manifest['teacher_sha256']
++            or old['teacher_config_sha256'] != manifest['teacher_config_sha256']
++            or marker['dataset_sha256'] != old['identity']):
++        raise ValueError('Source current-context cache has a different teacher or index identity')
++    routes = json.loads((source / 'routes.json').read_text())
++    expected = json.loads((ROOT / config['index_directory'] / 'routes.json').read_text())
++    if routes != expected:
++        raise ValueError('Source context route numbering differs')
++    return source, old['identity']
++
++
++def reusable_context(source, rid):
++    if source is None:
++        return None
++    directory, identity = source
++    path = directory / 'context' / f'{rid:05}.pt'
++    if not path.is_file():
++        return None
++    state = torch.load(path, map_location='cpu', weights_only=True)
++    if state['dataset_sha256'] != identity:
++        raise ValueError(f'Stale source context: {path}')
++    with np.load(directory / 'labels' / f'{rid:05}.npz') as f:
++        frame_ids = f['frame'].copy()
++    if len(state['memory']) != len(frame_ids) or len(state['ego']) != len(frame_ids):
++        raise ValueError(f'Source context frame count differs: {path}')
++    return {**state, 'frames': frame_ids}
++
++
++def missing_features(directory, manifest, route_ids, verify=True):
++    """Return only absent observations; cache availability never changes the index."""
++    routes = json.loads((directory / 'routes.json').read_text())
++    tasks, required = [], 0
++    for rid in route_ids:
++        with np.load(directory / 'labels' / f'{rid:05}.npz') as f:
++            needed = sorted(set(map(int, f['history_frames'].ravel())))
++        required += len(needed)
++        folder = Path(manifest['teacher_cache']) / routes[rid]
++        existing = ({int(p.name[:-4]) for p in os.scandir(folder) if p.name.endswith('.npy')}
++                    if folder.is_dir() else set())
++        for frame_id in needed:
++            if frame_id not in existing:
++                tasks.append((rid, frame_id, frame_id))
++            elif verify:
++                path = folder / f'{frame_id:04}.npy'
++                feature = np.load(path, mmap_mode='r', allow_pickle=False)
++                if feature.dtype != np.uint16 or feature.shape != (64, 64, 64):
++                    raise ValueError(f'Existing teacher feature is corrupt: {path}')
++                del feature
++    return tasks, required
++
++
++def features(args):
++    """Fill the union of observed history frames; never use the old LSF-only cache launcher."""
++    import torch.distributed as dist
++    from torch.utils.data import DataLoader
++    from method.full_diffusion2.perception import FrozenPlannerPerception
++    require_allocation()
++    config = json.loads(args.config.read_text())
++    validate_config(config)
++    directory = ROOT / config['index_directory']
++    manifest = json.loads((directory / 'manifest.json').read_text())
++    validate_manifest(manifest, config)
++    verify_teacher(manifest)
++    rank, world = int(os.environ.get('RANK', 0)), int(os.environ.get('WORLD_SIZE', 1))
++    local = int(os.environ.get('LOCAL_RANK', 0))
++    torch.set_num_threads(1)
++    torch.cuda.set_device(local)
++    if world > 1:
++        dist.init_process_group('nccl')
++    device = torch.device('cuda', local)
++    routes = sorted({int(r) for split in ('train', 'val') for r in np.load(directory / f'{split}.npy')[:, 0]})
++    selected = [r for r in routes if r % world == rank]
++    tasks, required = missing_features(directory, manifest, selected)
++    target = directory / 'features'
++    target.mkdir(exist_ok=True)
++    print(json.dumps({'event': 'feature_scan', 'rank': rank, 'required': required, 'missing': len(tasks)}), flush=True)
++    if tasks:
++        perception = FrozenPlannerPerception(manifest['backbone_directory']).to(device).eval()
++        loader = DataLoader(AnchorSensors(directory, manifest, tasks), batch_size=args.batch_size,
++                            num_workers=args.workers, pin_memory=True,
++                            **({'multiprocessing_context': 'spawn', 'prefetch_factor': 2} if args.workers else {}))
++        route_names = json.loads((directory / 'routes.json').read_text())
++        with torch.inference_mode():
++            for batch in loader:
++                sensor = {k: batch[k].to(device, non_blocking=True)
++                          for k in ('rgb', 'lidar', 'speed', 'command', 'target_point')}
++                with torch.autocast('cuda', dtype=torch.bfloat16):
++                    bev, _, _ = perception(sensor)
++                if bev.shape[1:] != (64, 64, 64) or not bool(torch.isfinite(bev).all()):
++                    raise ValueError('Invalid newly extracted teacher BEV')
++                for i, (rid, frame_id) in enumerate(zip(batch['route_id'].tolist(), batch['frame'].tolist())):
++                    path = Path(manifest['teacher_cache']) / route_names[rid] / f'{frame_id:04}.npy'
++                    path.parent.mkdir(parents=True, exist_ok=True)
++                    temporary = path.with_suffix(f'.{rank}.{os.getpid()}.partial')
++                    with temporary.open('wb') as handle:
++                        np.save(handle, bev[i].bfloat16().cpu().contiguous().view(torch.uint16).numpy(), allow_pickle=False)
++                    temporary.replace(path)
++    remaining, _ = missing_features(directory, manifest, selected, verify=False)
++    if remaining:
++        raise ValueError('Teacher feature filling is incomplete')
++    (target / f'rank{rank}.json').write_text(json.dumps({
++        'dataset_sha256': manifest['identity'], 'required': required, 'filled': len(tasks)}))
++    if world > 1:
++        dist.barrier(device_ids=[local])
++    if rank == 0:
++        states = [json.loads((target / f'rank{r}.json').read_text()) for r in range(world)]
++        if any(s['dataset_sha256'] != manifest['identity'] for s in states):
++            raise ValueError('Feature shard belongs to another index')
++        (target / 'complete.json').write_text(json.dumps({
++            'dataset_sha256': manifest['identity'], 'required_frames': sum(s['required'] for s in states),
++            'filled_frames': sum(s['filled'] for s in states), 'precision': 'bf16',
++            'verification': 'all required files present; pre-existing NPY headers validated; newly extracted BEVs finite'}, indent=2) + '\n')
++    if world > 1:
++        dist.destroy_process_group()
+ 
+ 
+ def contexts(args):
+@@ -193,8 +324,10 @@
+     from method.full_diffusion2.perception import FrozenPlannerPerception
+     require_allocation()
+     config = json.loads(args.config.read_text())
++    validate_config(config)
+     directory = ROOT / config['index_directory']
+     manifest = json.loads((directory / 'manifest.json').read_text())
++    validate_manifest(manifest, config)
+     rank, world = int(os.environ.get('RANK', 0)), int(os.environ.get('WORLD_SIZE', 1))
+     local = int(os.environ.get('LOCAL_RANK', 0))
+     torch.set_num_threads(1)
+@@ -206,17 +339,32 @@
+     target.mkdir(exist_ok=True)
+     routes = sorted({int(r) for split in ('train', 'val') for r in np.load(directory / f'{split}.npy')[:, 0]})
+     selected = [r for r in routes if r % world == rank and not (target / f'{r:05}.pt').exists()]
+-    perception = FrozenPlannerPerception(manifest['backbone_directory']).to(device).eval()
++    verify_teacher(manifest)
++    source = context_source(config, manifest)
++    perception = None
+     frames = 0
++    reused = 0
+     for start in range(0, len(selected), 64):
+         tasks = []
++        collected = defaultdict(list)
+         for rid in selected[start:start + 64]:
+             with np.load(directory / 'labels' / f'{rid:05}.npz') as f:
+-                tasks.extend((rid, s, int(frame)) for s, frame in enumerate(f['frame']))
++                frame_ids = f['frame'].copy()
++            old = reusable_context(source, rid)
++            old_slots = {} if old is None else {int(f): s for s, f in enumerate(old['frames'])}
++            for slot, frame_id in enumerate(frame_ids):
++                if int(frame_id) in old_slots:
++                    s = old_slots[int(frame_id)]
++                    collected[rid].append((slot, old['memory'][s].clone(), old['ego'][s].clone()))
++                    reused += 1
++                else:
++                    tasks.append((rid, slot, int(frame_id)))
++            del old
++        if tasks and perception is None:
++            perception = FrozenPlannerPerception(manifest['backbone_directory']).to(device).eval()
+         loader = DataLoader(AnchorSensors(directory, manifest, tasks), batch_size=args.batch_size,
+                             num_workers=args.workers, pin_memory=True,
+                             **({'multiprocessing_context': 'spawn', 'prefetch_factor': 2} if args.workers else {}))
+-        collected = defaultdict(list)
+         with torch.inference_mode():
+             for batch in loader:
+                 sensor = {k: batch[k].to(device, non_blocking=True)
+@@ -228,13 +376,16 @@
+                 frames += len(batch['rgb'])
+         for rid, records in collected.items():
+             ordered = sorted(records, key=lambda x: x[0])
+-            if [x[0] for x in ordered] != list(range(len(ordered))):
++            with np.load(directory / 'labels' / f'{rid:05}.npz') as f:
++                expected = len(f['frame'])
++            if [x[0] for x in ordered] != list(range(expected)):
+                 raise ValueError('Incomplete or duplicated context slots')
+-            state = {'memory': torch.stack([x[1] for x in ordered]), 'ego': torch.stack([x[2] for x in ordered]),
++            state = {'memory': torch.stack([x[1].bfloat16() for x in ordered]),
++                     'ego': torch.stack([x[2].bfloat16() for x in ordered]),
+                      'dataset_sha256': manifest['identity']}
+             torch.save(state, target / f'{rid:05}.partial')
+             (target / f'{rid:05}.partial').replace(target / f'{rid:05}.pt')
+-        print(json.dumps({'event': 'contexts', 'rank': rank, 'frames': frames,
++        print(json.dumps({'event': 'contexts', 'rank': rank, 'frames_extracted': frames, 'frames_reused': reused,
+                           'routes_done': min(start + 64, len(selected)), 'routes': len(selected)}), flush=True)
+     if world > 1:
+         dist.barrier(device_ids=[local])
+@@ -250,12 +401,12 @@
+ 
+ def main():
+     parser = argparse.ArgumentParser(description=__doc__)
+-    parser.add_argument('stage', choices=['labels', 'contexts'])
+-    parser.add_argument('--config', type=Path, default=Path(__file__).with_name('config.json'))
++    parser.add_argument('stage', choices=['labels', 'features', 'contexts'])
++    parser.add_argument('--config', type=Path, default=Path(__file__).with_name('config_train4hz.json'))
+     parser.add_argument('--workers', type=int, default=8)
+     parser.add_argument('--batch-size', type=int, default=16)
+     args = parser.parse_args()
+-    (labels if args.stage == 'labels' else contexts)(args)
++    {'labels': labels, 'features': features, 'contexts': contexts}[args.stage](args)
+ 
+ 
+ if __name__ == '__main__':
+--- reference/train.py
++++ train4hz/train.py
+@@ -1,4 +1,4 @@
+-"""Train the V5 future adapter on 2Hz chains of the 4Hz recording; V3 stays frozen."""
++"""Train V5 on single 4Hz route chains; each anchor gets a fresh world rollout."""
+ import argparse
+ from copy import deepcopy
+ from datetime import timedelta
+@@ -18,7 +18,6 @@
+ from torch.utils.data import DataLoader
+ 
+ from method.full_diffusionv3.diffusion import SpatialTemporalVPFullDiffusion
+-from method.full_diffusionv4.batched_rolling import BatchedRollingPlanStore
+ from method.full_diffusionv4.bootstrap import ROOT
+ from method.full_diffusionv4.data import RouteStreamBatchSampler
+ from method.full_diffusionv4.joint import detach_tree
+@@ -28,13 +27,11 @@
+ from method.full_diffusionv4.world import sha256
+ 
+ from .data import V5Dataset
++from .contract import CONTRACT, TRAINING_FORMAT, validate_config, validate_manifest
+ from .model import FutureAdaptedPlanner, align_future, build_world, generate_future, load_v3_head
++from .rolling import QuarterSecondPlanStore
+ 
+ STOP = False
+-AGES = [0.0, 0.25, 0.5]
+-PER_FRAME = ('raw_bev', 'memory', 'ego', 'history_transforms', 'history_mask', 'speed', 'command',
+-             'target_point', 'path', 'spatial_mask', 'temporal_delta', 'temporal_mask', 'future_positions',
+-             'behavior_targets', 'behavior_mask', 'current_pose')
+ 
+ 
+ def stop(*_):
+@@ -42,12 +39,8 @@
+     STOP = True
+ 
+ 
+-def frame(batch, j):
+-    return {k: batch[k][:, j] for k in PER_FRAME}
+-
+-
+-class CachedJointPlanner(nn.Module):
+-    """One world rollout per item at its refresh frame; cache reused at 0.25s and 0.5s."""
++class FreshWorldPlanner(nn.Module):
++    """The detached t-0.25 prediction drives a new rollout at the current t."""
+     def __init__(self, planner, world, diffusion, config):
+         super().__init__()
+         self.planner, self.world, self.config = planner, world, config
+@@ -60,20 +53,25 @@
+         return self
+ 
+     def future(self, x, prior, prior_valid, ages):
+-        return generate_future(self.world, self.planner, x['raw_bev'], x['history_transforms'],
+-                               x['history_mask'], prior, prior_valid, ages, x['speed'], x['ego'])
++        available = prior_valid.any(-1)
++        if bool((available & ((ages - .25).abs() > 1e-6)).any()):
++            raise ValueError('A usable training prior must be exactly 0.25s old')
++        if bool(prior_valid[:, -1].any()) or bool((available & ~prior_valid[:, :5].all(-1)).any()):
++            raise ValueError('The advanced previous plan covers five future points; its sixth tail is invalid')
++        future = generate_future(self.world, self.planner, x['raw_bev'], x['history_transforms'],
++                                 x['history_mask'], prior.detach(), prior_valid, ages.detach(), x['speed'], x['ego'])
++        if future is None:
++            return None
++        identity = torch.eye(3, device=prior.device).expand(len(prior), -1, -1)
++        # Generation and conditioning happen at the same observation: cache age is always zero.
++        return align_future(future, identity, torch.zeros(len(prior), device=prior.device))
+ 
+     def condition(self, x, future):
+         return self.planner.condition(x['raw_bev'][:, -1], x['memory'], x['ego'], x['target_point'],
+                                       x['raw_bev'][:, :2], x['history_transforms'][:, :2],
+                                       x['history_mask'][:, :2], x['speed'], x['command'], future)
+ 
+-    def aligned(self, future, batch, j, device):
+-        if future is None:
+-            return None
+-        transform = torch.linalg.solve(batch['current_pose'][:, j].double(), batch['current_pose'][:, 0].double())
+-        return align_future(future, transform, torch.full((len(transform),), AGES[j], device=device))
+-
++    @torch.no_grad()
+     def sample(self, condition, batch_size, device, generator, steps):
+         result = self.diffusion.sample(lambda x, t: self.planner(x, t, condition)['predictions'][-1],
+                                        batch_size, device, generator, steps)
+@@ -82,44 +80,41 @@
+     def forward(self, batch, prior, prior_valid, ages, generator):
+         settings, weights = self.config['training'], self.config['loss']
+         device, b = prior.device, len(prior)
+-        logs = {}
+         with torch.autocast(device_type=device.type, dtype=torch.bfloat16, enabled=device.type == 'cuda'):
+-            future = self.future(frame(batch, 0), prior, prior_valid, ages)
++            future = self.future(batch, prior, prior_valid, ages)
+             ready = (future['valid'].any(-1) if future is not None
+                      else torch.zeros(b, dtype=torch.bool, device=device))
+-            total, first = 0., None
+-            for j in range(3):
+-                x = frame(batch, j)
+-                condition = self.condition(x, self.aligned(future, batch, j, device))
+-                first = condition if j == 0 else first
+-                clean = self.planner.codec.encode(x['path'], x['temporal_delta'])
+-                steps = torch.randint(self.diffusion.train_steps, (b,), device=device)
+-                steps = torch.where(torch.rand(b, device=device) < settings['max_noise_fraction'],
+-                                    self.diffusion.train_steps - 1, steps)
+-                noisy, t = self.diffusion.corrupt(clean, steps)
+-                output = self.planner(noisy, t, condition)
+-                # Cold rows equal frozen V3 and carry no gradient; average over WM-ready rows only.
+-                parts = self.planner.base.loss_components(
+-                    output, clean, x['spatial_mask'] & ready[:, None], x['temporal_mask'] & ready[:, None],
+-                    x['behavior_targets'], x['behavior_mask'] & ready[:, None], weights)
+-                loss = weights['spatial_weight'] * parts['spatial_l1'] + weights['temporal_weight'] * parts['temporal_delta_l1']
+-                total = total + weights['age_weights'][j] * loss
+-                logs[f'spatial_l1_age{j}'] = parts['spatial_l1'].detach()
+-                logs[f'temporal_l1_age{j}'] = parts['temporal_delta_l1'].detach()
++            condition = self.condition(batch, future)
++            clean = self.planner.codec.encode(batch['path'], batch['temporal_delta'])
++            steps = torch.randint(self.diffusion.train_steps, (b,), device=device)
++            steps = torch.where(torch.rand(b, device=device) < settings['max_noise_fraction'],
++                                self.diffusion.train_steps - 1, steps)
++            noisy, t = self.diffusion.corrupt(clean, steps)
++            output = self.planner(noisy, t, condition)
++            # Cold rows use frozen V3. They bootstrap the next prior, without an adapter loss.
++            parts = self.planner.base.loss_components(
++                output, clean, batch['spatial_mask'] & ready[:, None], batch['temporal_mask'] & ready[:, None],
++                batch['behavior_targets'], batch['behavior_mask'] & ready[:, None], weights)
++            total = weights['spatial_weight'] * parts['spatial_l1'] + weights['temporal_weight'] * parts['temporal_delta_l1']
+             anchor = sum(p.reshape(-1)[0] * 0 for p in self.parameters() if p.requires_grad)
+-            _, delta = self.sample(detach_tree(first), b, device, generator, settings['rolling_inference_steps'])
+-        return {'loss': total + anchor, **logs, 'sampled_delta': delta.detach().float(),
+-                'future_ready': ready.float().sum()}
++            _, delta = self.sample(detach_tree(condition), b, device, generator, settings['rolling_inference_steps'])
++        return {'loss': total + anchor, 'spatial_l1': parts['spatial_l1'].detach(),
++                'temporal_l1': parts['temporal_delta_l1'].detach(), 'sampled_delta': delta.detach().float(),
++                'future_ready': ready.float().sum(), 'prior_ready': prior_valid.any(-1).float().sum(),
++                'prior_age_sum_seconds': ages.sum(), 'cache_age_max_seconds': ages.new_zeros(()),
++                'valid_prior_points': prior_valid.float().sum()}
+ 
+ 
+ def build(config, manifest, device):
+     seed(config['seed'])
+-    if config['schedule']['training_cache_ages_seconds'] != AGES:
+-        raise ValueError('Items are (t, t+0.25, t+0.5); cache ages must be [0, 0.25, 0.5]')
++    validate_config(config)
++    validate_manifest(manifest, config)
+     path = ROOT / config['v3']['checkpoint']
+     if sha256(path) != config['v3']['sha256']:
+         raise ValueError('V3 checkpoint checksum differs')
+     base, v3config = load_v3_head(path)
++    if v3config['model']['history_frames'] != 2 or v3config['observation_interval_seconds'] != .25:
++        raise ValueError('The frozen V3 head must share the original three-observation 0.25s history')
+     if v3config['labels'] != config['labels'] or manifest['label_config'] != config['labels']:
+         raise ValueError('V5 labels/index must match the frozen V3 labels')
+     world = build_world(config, ROOT, training=True)
+@@ -129,7 +124,9 @@
+     planner = FutureAdaptedPlanner(base, config['future_sampler'])
+     diffusion = SpatialTemporalVPFullDiffusion(base.codec, **{
+         k: v for k, v in v3config['diffusion'].items() if k != 'inference_steps'})
+-    return CachedJointPlanner(planner, world, diffusion, config).to(device)
++    if config['diffusion']['inference_steps'] > diffusion.train_steps:
++        raise ValueError('DDIM sampling steps exceed the diffusion training steps')
++    return FreshWorldPlanner(planner, world, diffusion, config).to(device)
+ 
+ 
+ def optimizer_groups(policy, settings):
+@@ -170,7 +167,8 @@
+     if rank == 0:
+         if any(s['parameter_checksum'] != states[0]['parameter_checksum'] for s in states):
+             raise RuntimeError('DDP parameters differ between ranks at checkpoint')
+-        state = {'format': 'full_diffusionv5_v1', 'config': config, 'adapter': policy.planner.adapter.state_dict(),
++        state = {'format': TRAINING_FORMAT, 'training_contract': CONTRACT,
++                 'config': config, 'adapter': policy.planner.adapter.state_dict(),
+                  'world_tuned_state': policy.world.export_tuned() if config['world'].get('tuning') else None,
+                  'world': policy.world.provenance, 'v3': config['v3'], 'dataset': metadata,
+                  'progress': deepcopy(progress), 'gates': policy.planner.gates(),
+@@ -187,7 +185,7 @@
+ 
+ @torch.no_grad()
+ def validate(policy, config, device):
+-    """Chronological 2Hz chains; V5 and frozen V3 share each initial noise sample."""
++    """Use the same fresh-world 4Hz chain, with identical V5/V3 initial noise."""
+     rank, size = rank_world()
+     dataset = V5Dataset(ROOT / config['index_directory'], 'val')
+     routes = sorted({int(r) for r in dataset.samples[:, 0]})
+@@ -197,52 +195,59 @@
+     batch_size = min(config['training']['batch_per_gpu'], max(1, len(np.unique(chains[:, 0]))))
+     loader = DataLoader(dataset, batch_sampler=RouteStreamBatchSampler(chains, batch_size, config['seed']),
+                         num_workers=0)
+-    rolling = BatchedRollingPlanStore(config['schedule']['max_prior_age_seconds'])
++    rolling = QuarterSecondPlanStore()
+     generator = torch.Generator(device=device).manual_seed(config['seed'] + 500009 + rank)
+     steps = config['diffusion']['inference_steps']
+-    totals = torch.zeros(len(dataset.routes), 3, 5, dtype=torch.float64, device=device)
++    # Groups: all target-valid frames, and the subset with usable world tokens.
++    totals = torch.zeros(len(dataset.routes), 2, 5, dtype=torch.float64, device=device)
+     policy.eval()
+     for batch in loader:
+         batch = move(batch, device)
+-        prior, valid, ages = rolling.prior(batch['chain_id'], batch['current_pose'][:, 0], batch['timestamp'])
++        prior, valid, ages = rolling.prior(batch['chain_id'], batch['current_pose'], batch['timestamp'])
+         with torch.autocast(device_type=device.type, dtype=torch.bfloat16, enabled=device.type == 'cuda'):
+-            future = policy.future(frame(batch, 0), prior, valid, ages)
++            future = policy.future(batch, prior, valid, ages)
+             ready = future['valid'].any(-1) if future is not None else torch.zeros(len(prior), dtype=torch.bool, device=device)
+-            for j in range(3):
+-                x = frame(batch, j)
+-                state = generator.get_state()
+-                path, delta = policy.sample(policy.condition(x, policy.aligned(future, batch, j, device)),
+-                                            len(prior), device, generator, steps)
+-                generator.set_state(state)
+-                base_path, base_delta = policy.sample(policy.condition(x, None), len(prior), device, generator, steps)
+-                stored = delta if j == 0 else stored
+-                measured = torch.stack((
+-                    (path - x['path']).float().norm(dim=-1).mean(1),
+-                    (delta.cumsum(1) - x['future_positions']).float().norm(dim=-1).mean(1),
+-                    (base_path - x['path']).float().norm(dim=-1).mean(1),
+-                    (base_delta.cumsum(1) - x['future_positions']).float().norm(dim=-1).mean(1),
+-                    torch.ones(len(prior), device=device)), -1).double() * ready[:, None]
+-                totals[:, j].index_add_(0, batch['route_id'], measured)
+-        rolling.update(batch['chain_id'], batch['current_pose'][:, 0], batch['timestamp'], stored.float())
++            state = generator.get_state()
++            path, delta = policy.sample(policy.condition(batch, future), len(prior), device, generator, steps)
++            generator.set_state(state)
++            base_path, base_delta = policy.sample(policy.condition(batch, None), len(prior), device, generator, steps)
++            measured = torch.stack((
++                masked_ade(path, batch['path'], batch['spatial_mask']),
++                masked_ade(delta.cumsum(1), batch['future_positions'], batch['temporal_mask']),
++                masked_ade(base_path, batch['path'], batch['spatial_mask']),
++                masked_ade(base_delta.cumsum(1), batch['future_positions'], batch['temporal_mask']),
++                torch.ones(len(prior), device=device)), -1).double()
++            target_valid = batch['spatial_mask'].any(-1) & batch['temporal_mask'].any(-1)
++            totals[:, 0].index_add_(0, batch['route_id'], measured * target_valid[:, None])
++            totals[:, 1].index_add_(0, batch['route_id'], measured * (target_valid & ready)[:, None])
++        rolling.update(batch['chain_id'], batch['current_pose'], batch['timestamp'], delta.float())
+     if size > 1:
+         dist.all_reduce(totals)
+     metrics = {}
+-    for j in range(3):
++    for j, group in enumerate(('all', 'ready')):
+         present = totals[:, j, -1] > 0
+         macro = (totals[present, j, :4] / totals[present, j, -1:]).mean(0).tolist() if bool(present.any()) else [math.nan] * 4
+         for name, value in zip(('v5_spatial_ade_m', 'v5_future_ade_m', 'v3_spatial_ade_m', 'v3_future_ade_m'), macro):
+-            metrics[f'{name}_age{j}'] = value
+-        metrics[f'ready_frames_age{j}'] = int(totals[:, j, -1].sum())
+-    metrics['score_v5_future_ade_m'] = float(np.mean([metrics[f'v5_future_ade_m_age{j}'] for j in range(3)]))
+-    metrics['gain_vs_v3_future_ade_m'] = float(np.mean([metrics[f'v3_future_ade_m_age{j}'] - metrics[f'v5_future_ade_m_age{j}']
+-                                                       for j in range(3)]))
++            metrics[f'{name}_{group}'] = value
++        metrics[f'frames_{group}'] = int(totals[:, j, -1].sum())
++        metrics[f'routes_{group}'] = int(present.sum())
++    metrics['score_v5_future_ade_m'] = metrics['v5_future_ade_m_ready']
++    metrics['gain_vs_v3_future_ade_m'] = metrics['v3_future_ade_m_ready'] - metrics['v5_future_ade_m_ready']
++    if not math.isfinite(metrics['score_v5_future_ade_m']):
++        raise RuntimeError('No finite world-ready validation score; refusing to select a best checkpoint')
+     policy.train()
+-    return {**metrics, 'aggregation': 'route_macro over world-ready frames', 'inference_steps': steps}
++    return {**metrics, 'aggregation': 'route_macro, all frames and world-ready subset',
++            'inference_steps': steps, 'training_contract': CONTRACT}
++
++
++def masked_ade(prediction, target, mask):
++    errors = (prediction.float() - target.float()).norm(dim=-1)
++    return (errors * mask).sum(-1) / mask.sum(-1).clamp_min(1)
+ 
+ 
+ def main():
+     parser = argparse.ArgumentParser(description=__doc__)
+-    parser.add_argument('--config', type=Path, default=Path(__file__).with_name('config.json'))
++    parser.add_argument('--config', type=Path, default=Path(__file__).with_name('config_train4hz.json'))
+     parser.add_argument('--output', type=Path, required=True)
+     parser.add_argument('--resume', action='store_true')
+     parser.add_argument('--max-updates', type=int)
+@@ -260,6 +265,7 @@
+     torch.backends.cudnn.allow_tf32 = True
+     torch.backends.cuda.matmul.allow_tf32 = True
+     config = json.loads(args.config.read_text())
++    validate_config(config)
+     settings = config['training']
+     if size != settings['world_size']:
+         raise ValueError('DDP world size differs from the config')
+@@ -285,14 +291,17 @@
+         return .1 + .9 * .5 * (1 + math.cos(math.pi * progress))
+ 
+     scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, schedule)
+-    metadata = {'index_identity': manifest['identity'], 'train_items': len(dataset), 'world_size': size,
++    metadata = {'index_identity': manifest['identity'], 'training_contract': CONTRACT,
++                'train_items': len(dataset), 'world_size': size,
+                 'global_items_per_update': size * settings['batch_per_gpu'], 'steps_per_epoch': steps_per_epoch}
+-    rolling = BatchedRollingPlanStore(config['schedule']['max_prior_age_seconds'])
++    rolling = QuarterSecondPlanStore()
+     generator = torch.Generator(device=device).manual_seed(config['seed'] + rank + 100003)
+     seed(config['seed'] + rank + 200003)
+     progress = {'epoch': 0, 'step_in_epoch': 0, 'updates': 0, 'best_score': None, 'validation_pending': False}
+     if args.resume:
+         state = torch.load(args.output / 'latest.pt', map_location='cpu', weights_only=False)
++        if state.get('format') != TRAINING_FORMAT or state.get('training_contract') != CONTRACT:
++            raise ValueError('Only the same fresh-world 4Hz training checkpoint can resume this run')
+         if state['config'] != config or state['dataset'] != metadata:
+             raise ValueError('Resume config, index or world size differs')
+         policy.planner.adapter.load_state_dict(state['adapter'], strict=True)
+@@ -339,7 +348,7 @@
+             begin = time.perf_counter()
+             batch = move(next(iterator), device)
+             data_wait = time.perf_counter() - begin
+-            prior, valid, ages = rolling.prior(batch['chain_id'], batch['current_pose'][:, 0], batch['timestamp'])
++            prior, valid, ages = rolling.prior(batch['chain_id'], batch['current_pose'], batch['timestamp'])
+             optimizer.zero_grad(set_to_none=True)
+             output = ddp(batch, prior, valid, ages, generator)
+             if not bool(torch.isfinite(output['loss'])):
+@@ -348,16 +357,21 @@
+             norm = torch.nn.utils.clip_grad_norm_(policy.parameters(), settings['gradient_clip'], error_if_nonfinite=True)
+             optimizer.step()
+             scheduler.step()
+-            rolling.update(batch['chain_id'], batch['current_pose'][:, 0], batch['timestamp'], output['sampled_delta'])
++            rolling.update(batch['chain_id'], batch['current_pose'], batch['timestamp'], output['sampled_delta'])
+             sampler.commit()
+             progress.update(epoch=epoch, step_in_epoch=step + 1, updates=progress['updates'] + 1)
+             if progress['updates'] < 5 or progress['updates'] % settings['log_every'] == 0:
+-                names = ['loss'] + [f'{k}_l1_age{j}' for j in range(3) for k in ('spatial', 'temporal')] + ['future_ready']
++                names = ['loss', 'spatial_l1', 'temporal_l1', 'future_ready', 'prior_ready',
++                         'prior_age_sum_seconds', 'valid_prior_points', 'cache_age_max_seconds']
+                 values = torch.stack([output[k].detach().float() for k in names])
+                 if size > 1:
+                     dist.all_reduce(values)
+                 if rank == 0:
+-                    record = {**progress, **{k: float(v) / (1 if k == 'future_ready' else size) for k, v in zip(names, values)},
++                    summed = {'future_ready', 'prior_ready', 'prior_age_sum_seconds', 'valid_prior_points'}
++                    stats = {k: float(v) / (1 if k in summed else size) for k, v in zip(names, values)}
++                    stats['prior_age_mean_seconds'] = stats['prior_age_sum_seconds'] / max(1, stats['prior_ready'])
++                    stats['valid_points_per_prior'] = stats['valid_prior_points'] / max(1, stats['prior_ready'])
++                    record = {**progress, **stats,
+                               'global_items': size * len(prior), 'seconds_per_update': time.perf_counter() - begin,
+                               'data_wait_seconds': data_wait, 'gradient_norm': float(norm),
+                               'gates': policy.planner.gates(),
+--- reference/model.py
++++ train4hz/model.py
+@@ -1,8 +1,7 @@
+-"""Frozen V3 head plus zero-gated readouts of a cached action-conditioned future.
+-
+-The world model runs once per 0.5s refresh. Its sampled future tokens stay in the
+-refresh ego frame; every later planning tick re-expresses them in the current
+-ego frame and current relative time before the denoiser reads them.
++"""Frozen V3 plus zero-gated future readouts, reused from the reference V5.
++
++The caller owns the rollout schedule. Training generates a fresh future for
++every 4Hz anchor and reads it in the same ego frame with cache age zero.
+ """
+ import math
+ 

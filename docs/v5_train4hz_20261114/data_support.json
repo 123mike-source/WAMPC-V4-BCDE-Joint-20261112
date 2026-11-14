@@ -1,0 +1,95 @@
+{
+  "config": "/share/home/u21012/nixiran/WAMPC/method/full_diffusionv5/config_train4hz.json",
+  "source_index": "/share/home/u21012/nixiran/WAMPC/data/irwm_bev_t/pdm_seed901_dev44_dt05_tongji_v1",
+  "teacher_cache": "/share/home/u21012/nixiran/WAMPC/data/irwm_bev/teacher_cache/0ff5062a234f5919_895e3e9704ce_bf16_v1",
+  "context_source_index": "/share/home/u21012/nixiran/WAMPC/data/full_diffusionv4/pdm_seed901_bcde_v1",
+  "context_identity_verified": true,
+  "scope": "all active routes in the reused source split; metadata and missing-file existence only; no GPU inference",
+  "train": {
+    "source_routes": 4796,
+    "active_4hz_routes": 4796,
+    "anchors": 442768,
+    "required_observed_frames": 452360,
+    "missing_teacher_frames": 2350,
+    "missing_teacher_raw_files": 0,
+    "reusable_context_frames": 222607,
+    "context_frames_to_extract": 220161,
+    "chronological_segments": 4796,
+    "cold_start_anchors": 4796
+  },
+  "val": {
+    "source_routes": 44,
+    "active_4hz_routes": 44,
+    "anchors": 3784,
+    "required_observed_frames": 3872,
+    "missing_teacher_frames": 16,
+    "missing_teacher_raw_files": 0,
+    "reusable_context_frames": 1906,
+    "context_frames_to_extract": 1878,
+    "chronological_segments": 44,
+    "cold_start_anchors": 44
+  },
+  "missing_teacher_examples": [
+    {
+      "route_id": 1,
+      "route": "Accident/Town12_Rep0_1392_0_route0_11_08_07_08_22",
+      "frame": 59,
+      "absent_raw": []
+    },
+    {
+      "route_id": 3,
+      "route": "Accident/Town12_Rep0_1423_0_route0_11_08_02_12_34",
+      "frame": 51,
+      "absent_raw": []
+    },
+    {
+      "route_id": 4,
+      "route": "Accident/Town12_Rep0_1423_1_route0_11_08_22_05_27",
+      "frame": 55,
+      "absent_raw": []
+    },
+    {
+      "route_id": 11,
+      "route": "Accident/Town12_Rep0_2488_1_route0_11_08_17_28_24",
+      "frame": 59,
+      "absent_raw": []
+    },
+    {
+      "route_id": 12,
+      "route": "Accident/Town12_Rep0_2642_0_route0_11_08_16_26_28",
+      "frame": 113,
+      "absent_raw": []
+    },
+    {
+      "route_id": 14,
+      "route": "Accident/Town12_Rep0_2841_0_route0_11_08_18_52_09",
+      "frame": 45,
+      "absent_raw": []
+    },
+    {
+      "route_id": 19,
+      "route": "Accident/Town12_Rep0_3191_0_route0_11_08_07_31_33",
+      "frame": 103,
+      "absent_raw": []
+    },
+    {
+      "route_id": 20,
+      "route": "Accident/Town12_Rep0_3726_0_route0_11_08_11_07_50",
+      "frame": 117,
+      "absent_raw": []
+    },
+    {
+      "route_id": 22,
+      "route": "Accident/Town12_Rep0_3759_0_route0_11_08_21_14_00",
+      "frame": 87,
+      "absent_raw": []
+    },
+    {
+      "route_id": 23,
+      "route": "Accident/Town12_Rep0_3817_0_route0_11_09_07_06_36",
+      "frame": 97,
+      "absent_raw": []
+    }
+  ],
+  "seconds": 259.59389028325677
+}

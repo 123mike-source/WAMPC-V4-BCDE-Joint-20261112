@@ -1,0 +1,20 @@
+{
+  "reference_repository": "neasonrum/WMMPC",
+  "reference_commit": "0c8a65142739515d2c9796d7358dd35b67d150da",
+  "files": {
+    "method/full_diffusionv5/__init__.py": "2c7ebd552ecb9eeb5aa618acb1bfcd7048f834d73f75b78bcaacd1d6b76b596d",
+    "method/full_diffusionv5/config_train4hz.json": "10366a88e4cf0f3d0cde53f5534ba2b9fbec258671e9ed778775df620913636a",
+    "method/full_diffusionv5/contract.py": "c53c01c5a45d6ba51e1b6c4f00137b3455f90354538ee248a589029452ededf8",
+    "method/full_diffusionv5/data.py": "f9e0a07a66d075c5e3cce8f7b76f6480bfc0951d096dcff133b874a5ab933894",
+    "method/full_diffusionv5/model.py": "6385f51c6031e752b27b7bdc678e7dc4db1857f9e710c47134a3ecb6c7e80049",
+    "method/full_diffusionv5/prepare.py": "98ddeec27ca06b08aa046f6e1df48cdb2b912721bce67958fe00ee983cd0a96b",
+    "method/full_diffusionv5/rolling.py": "5714b2f753198d8c821bbef609e465f0521bf099d4f1e3d99a125e8bb42b09c1",
+    "method/full_diffusionv5/train.py": "54017e0de963b9393b339578a72406f046fc063c70115408cc48a57d0c49689d",
+    "method/full_diffusionv5/TRAINING.md": "f78a607d3fe28da5c5d9830b2d0be103793a4b2951eea091617bb11a90bac27e",
+    "tests/test_full_diffusionv5_train4hz.py": "bed6815c590db4c0d4b2984336d98ee4105749dbed469d3526f2ade389950832",
+    "tools/smoke_v5_train4hz_ddp.py": "c8e59b30550552ad7adbaeb8d23eb91c03d3771b8dd0a010c4a5b92ee7d6a84c",
+    "tools/train_v5_train4hz_tongji.sh": "3cc967470d5addfb65c4a50271190c4a65cc31e27b2e861fc91172296556f674"
+  },
+  "shared_model_functions_unchanged": true,
+  "scope": "training/index/cache preparation only; no inference or evaluation files"
+}

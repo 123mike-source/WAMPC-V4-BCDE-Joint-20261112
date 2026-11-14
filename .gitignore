@@ -16,3 +16,4 @@ results/local_*/
 *.tmp
 .DS_Store
 Thumbs.db
+configs/local_v5_train4hz.json
