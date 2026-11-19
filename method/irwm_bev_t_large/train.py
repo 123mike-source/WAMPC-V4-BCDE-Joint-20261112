@@ -264,6 +264,14 @@ def main():
     signal.signal(signal.SIGTERM, request_stop)
 
     def finish_validation():
+        from method.training_selection import validation_enabled, record_no_validation, final_checkpoint
+        if not validation_enabled():
+            metrics = record_no_validation(progress)
+            save_checkpoint(args.output, model, optimizer, scheduler, progress, config, manifest, device,
+                            metrics=metrics, epoch_file=True)
+            if rank == 0:
+                final_checkpoint(args.output, progress, config['epochs'])
+            return metrics
         metrics = validate(validation, model, teacher, config, device)
         score = metrics['model']['nmse']
         best = progress['best_nmse'] is None or score < progress['best_nmse']
@@ -317,7 +325,7 @@ def main():
         save_checkpoint(args.output, model, optimizer, scheduler, progress, config, manifest, device)
         metrics = finish_validation()
         if rank == 0:
-            print(json.dumps({'epoch': epoch + 1, 'validation': metrics['model']}), flush=True)
+            print(json.dumps({'epoch': epoch + 1, 'validation': metrics.get('model', metrics)}), flush=True)
     if rank == 0:
         (args.output / 'completed.json').write_text(json.dumps(progress, indent=2) + '\n')
     if distributed():

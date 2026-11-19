@@ -155,11 +155,17 @@ def build_index(output, data_root=DATA_ROOT, backbone_directory=BACKBONE, worker
 
 class GarageGeoDataset(Dataset):
     def __init__(self, index_directory, split="train", data_root=DATA_ROOT,
-                 backbone_directory=BACKBONE, training=None):
+                 backbone_directory=BACKBONE, training=None, select_training=True):
         self.data_root = Path(data_root)
         index_directory = Path(index_directory)
         self.routes = json.loads((index_directory / "routes.json").read_text())
-        self.samples = np.load(index_directory / f"{split}.npy", mmap_mode="r")
+        from method.training_selection import load_samples
+        self.samples = load_samples(index_directory, split)
+        self.training_selection = None
+        if select_training:
+            from method.training_selection import filter_samples
+            self.samples, self.training_selection = filter_samples(
+                self.samples, self.routes, self.data_root, split)
         self.epoch = 0
         self.processor = make_preprocessor(load_config(backbone_directory),
                                            split == "train" if training is None else training)

@@ -19,6 +19,10 @@ class FullDiffusionTiming:
     method = 'full_diffusion2'
     sampler_type = VPFullDiffusion
     log_prefix = 'FULL_DIFFUSION2'
+    telemetry_interval_steps = 20
+
+    def telemetry_due(self):
+        return self.step < 3 or self.step % self.telemetry_interval_steps == 0
 
     def event(self, event, **values):
         with (self.directory/'route_events.jsonl').open('a') as handle:
@@ -53,7 +57,7 @@ class FullDiffusionTiming:
             start = time.perf_counter()
             result = forward(*args, **kwargs)
             self._network_seconds = time.perf_counter()-start
-            if self.step < 3 or self.step % 20 == 0:
+            if self.telemetry_due():
                 self._last_path = result[2][0].detach().float().cpu().tolist()
             return result
 
@@ -83,7 +87,7 @@ class FullDiffusionTiming:
             context = patch.object(sensor_agent.SensorAgent, 'run_step', self._buffered_run_step)
         with context:
             control = super().run_step(input_data, timestamp, sensors)
-        if self.step < 3 or self.step % 20 == 0:
+        if self.telemetry_due():
             cpu_end = resource.getrusage(resource.RUSAGE_SELF)
             history = self.nets[0].history
             record = {'unix': time.time(), 'route': self.route_name, 'step': self.step,

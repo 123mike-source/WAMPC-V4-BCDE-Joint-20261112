@@ -1,0 +1,52 @@
+"""Bench2Drive sensor, world, planner and controller all refresh at 20Hz."""
+from pathlib import Path
+import sys
+from unittest.mock import patch
+
+ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / 'leaderboard'))
+sys.path.insert(0, str(ROOT / 'scenario_runner'))
+from method.full_diffusion.garage import BACKBONE, load_config
+load_config()
+import sensor_agent
+import timm
+from .policy import FullDiffusionV7Network
+
+
+def get_entry_point():
+    return 'FullDiffusionV7Agent'
+
+
+class FullDiffusionV7Agent(sensor_agent.SensorAgent):
+    def setup(self, path_to_conf_file, route_index=None, traffic_manager=None):
+        checkpoint = Path(path_to_conf_file.split('+')[0])
+        checkpoint = checkpoint / 'final.pt' if checkpoint.is_dir() else checkpoint
+        if not checkpoint.is_file():
+            raise FileNotFoundError(checkpoint)
+        create_model = timm.create_model
+        def offline_model(*args, **kwargs):
+            kwargs['pretrained'] = False
+            return create_model(*args, **kwargs)
+        with patch.object(timm, 'create_model', side_effect=offline_model):
+            super().setup(str(BACKBONE), route_index, traffic_manager)
+        if self.model_count != 1:
+            raise RuntimeError('V7 requires exactly one frozen all_towns perception model')
+        self.nets = [FullDiffusionV7Network(self.nets[0], checkpoint, self.device)]
+        self.config.inference_direct_controller = 1
+        self.compile = False
+        self.observation_timestamp = 0.
+
+    def tick(self, input_data):
+        result = super().tick(input_data)
+        self.nets[0].set_observation(self.state_log[-1][:3].copy(), self.observation_timestamp)
+        return result
+
+    def run_step(self, input_data, timestamp, sensors=None):
+        self.observation_timestamp = float(timestamp)
+        control = super().run_step(input_data, timestamp, sensors)
+        current_speed = float(input_data['speed'][1]['speed'])
+        if current_speed * 3.6 > 35:
+            control = self.nets[0].apply_speed_limit(control, current_speed)
+            self.control = control
+        return control

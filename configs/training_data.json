@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "policy": "pdm_bridgedrive_keyframes_v1",
+  "split_mode": "all_training",
+  "setting": "all",
+  "val_towns": [],
+  "validation": "disabled",
+  "checkpoint_selection": "final_epoch",
+  "data_root": "/share/home/u21012/data/bench2drive-PDMlite",
+  "selection_directory": "data/selection/pdm_garage2024_bridgedrive_alltrain_seed901_v2",
+  "manifest_sha256": "5714eb43f64924a4faf6fd71a113e818d8db669e41127944cfc1cab54d52b779",
+  "seed": 901,
+  "reference": "https://arxiv.org/html/2509.23589v4#A3.SS1"
+}

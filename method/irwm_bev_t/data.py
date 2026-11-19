@@ -27,8 +27,19 @@ class SequenceDataset(Dataset):
     def __init__(self, index, split, cache_root):
         self.index = Path(index)
         self.manifest = json.loads((self.index / 'manifest.json').read_text())
+        if self.manifest.get('split_mode') == 'all_training':
+            ready = json.loads((self.index / 'cache_ready.json').read_text())
+            if ready['dataset_sha256'] != self.manifest['identity']:
+                raise ValueError('All-training support cache is incomplete or stale')
         self.routes = json.loads((self.index / 'routes.json').read_text())
-        self.samples = np.load(self.index / f'{split}.npy', mmap_mode='r')
+        from method.training_selection import load_samples
+        self.samples = load_samples(self.index, split)
+        from method.training_selection import filter_samples
+        self.samples, self.training_selection = filter_samples(
+            self.samples, self.routes, self.manifest['data_root'], split,
+            slots_directory=self.index / 'metadata')
+        if self.training_selection is not None:
+            self.manifest = {**self.manifest, 'training_selection': self.training_selection}
         if self.manifest['query_times_seconds'] != list(TIMES):
             raise ValueError('The dataset does not implement the fixed 3-second contract')
         identity = self.manifest['teacher_sha256'][:16] + '_' + self.manifest['teacher_config_sha256'][:12] + '_bf16_v1'

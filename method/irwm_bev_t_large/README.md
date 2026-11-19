@@ -1,5 +1,7 @@
 # IRWM timed BEV: combined B+C+D+E
 
+[Published epoch-21 BCDE checkpoint](../../ckpt/irwm_bev_t_large/) and [V7 runtime setup](../full_diffusionv7/README.md). The 44-route validation split described below is the historical BCDE run that produced those weights. The current source defaults to the repository's [all-training policy](../../TRAINING_DATA.md).
+
 This independent module extends `irwm_bev_t`. Its input/output, fixed current-ego
 coordinates and six half-second action intervals remain compatible. No original
 world-model, V3, or existing checkpoint is overwritten.
